@@ -1,7 +1,4 @@
-import { useState, useCallback, useEffect } from "react";
-import styles from "./TextGenerator.module.css";
 import {
-  Box,
   Button,
   Text,
   Input,
@@ -16,10 +13,12 @@ import {
   IconButton,
   Alert,
   AlertIcon,
+  Box
 } from "@chakra-ui/react";
 import { toPng } from "html-to-image";
 import { useDropzone } from "react-dropzone";
 import { RepeatIcon } from "@chakra-ui/icons";
+import React, { useState, useCallback, useEffect } from 'react';
 
 const TextGenerator = () => {
   const [textColor, setTextColor] = useState("#ffffff");
@@ -31,26 +30,24 @@ const TextGenerator = () => {
   const [gradientEnd, setGradientEnd] = useState("#ffffff");
   const [gradientDirection, setGradientDirection] = useState("to bottom");
   const [gradientOpacity, setGradientOpacity] = useState(0.6);
-  const [greetingMessages, setGreetingMessages] = useState([]); // Estado para armazenar todas as frases
+  const [greetingMessages, setGreetingMessages] = useState([]);
   const [fontFamily, setFontFamily] = useState("Roboto");
   const [loading, setLoading] = useState(false);
   const [nameSize, setNameSize] = useState(4);
   const [phraseSize, setPhraseSize] = useState(2.5);
   const [textAlign, setTextAlign] = useState("center");
   const [textShadow, setTextShadow] = useState("none");
-  const [newFrase, setNewFrase] = useState(""); // Estado para nova frase
-  const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0); // Estado para o índice da frase atual
+  const [newFrase, setNewFrase] = useState("");
+  const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0);
 
-  // Função para buscar frases da API
   const fetchFrases = async () => {
     const response = await fetch('/api/frases');
     const data = await response.json();
-    setGreetingMessages(data); // Armazena todas as frases
+    setGreetingMessages(data);
   };
 
-  // Função para adicionar uma nova frase
   const addFrase = async () => {
-    if (!newFrase) return; // Não adiciona se a frase estiver vazia
+    if (!newFrase) return;
     const response = await fetch('/api/frases', {
       method: 'POST',
       headers: {
@@ -58,12 +55,11 @@ const TextGenerator = () => {
       },
       body: JSON.stringify({ frase: newFrase }),
     });
-    await fetchFrases(); // Atualiza a lista após adicionar
-    setNewFrase(""); // Limpa o campo de nova frase
+    await fetchFrases();
+    setNewFrase("");
     return response.json();
   };
 
-  // Função para mudar a frase exibida
   const changePhrase = () => {
     if (greetingMessages.length > 0) {
       setCurrentPhraseIndex((prevIndex) => (prevIndex + 1) % greetingMessages.length);
@@ -98,10 +94,10 @@ const TextGenerator = () => {
         setLoading(false);
       });
   }, [validateName]);
-
+<br/>
   const { getRootProps, getInputProps } = useDropzone({
     accept: {
-      'image/jpeg': ['.jpeg', '.jpg'],
+      'image/jpeg': ['.jpeg ', '.jpg'],
       'image/png': ['.png']
     },
     onDrop: useCallback((acceptedFiles) => {
@@ -121,12 +117,12 @@ const TextGenerator = () => {
       reader.readAsDataURL(file);
     }, []),
   });
-  
 
   useEffect(() => {
-    fetchFrases(); // Buscar frases ao montar o componente
+    fetchFrases();
   }, []);
 
+  <br/>
   return (
     <Flex
       minH="100vh"
@@ -254,7 +250,7 @@ const TextGenerator = () => {
                   <Input
                     type="color"
                     value={gradientStart}
-                    onChange={(e) => setGradientStart(e.target.value)}
+                    onChange={(e) => setGradientStart(e.target .value)}
                     width="100%"
                   />
                 </Box>
@@ -388,7 +384,7 @@ const TextGenerator = () => {
           </Text>
           <Flex align="center">
             <Text fontSize={`${phraseSize}rem`}>
-              {greetingMessages[currentPhraseIndex]} {/* Exibe a frase atual */}
+              {greetingMessages[currentPhraseIndex]}
             </Text>
           </Flex>
         </Flex>
@@ -411,11 +407,10 @@ const TextGenerator = () => {
       </Box>
 
       <Flex mt={4}>
-      
         <IconButton
           aria-label="Mostrar todas as frases"
           icon={<RepeatIcon />}
-          onClick={changePhrase} // Chama a função para mudar a frase
+          onClick={changePhrase}
           variant="outline"
           colorScheme="whiteAlpha"
           size="sm"

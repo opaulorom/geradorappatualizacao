@@ -5,22 +5,90 @@ import {
   Flex,
   Select,
   Spinner,
-  Accordion,
-  AccordionItem,
-  AccordionButton,
-  AccordionPanel,
-  AccordionIcon,
   IconButton,
   Alert,
   AlertIcon,
-  Box
+  Box,
+  Slider,
+  SliderTrack,
+  SliderFilledTrack,
+  SliderThumb,
 } from "@chakra-ui/react";
 import { toPng } from "html-to-image";
-import { useDropzone } from "react-dropzone";
+import React, { useState, useCallback, useEffect, useMemo } from "react";
 import { RepeatIcon } from "@chakra-ui/icons";
-import React, { useState, useCallback, useEffect } from 'react';
+import { useDropzone } from "react-dropzone"; 
+import { useMediaQuery } from "@chakra-ui/react";
+import Image from 'next/image';
+
+// Componente para Controle de Gradiente
+const GradientControls = ({
+  gradientStart,
+  gradientEnd,
+  gradientDirection,
+  gradientOpacity,
+  setGradientStart,
+  setGradientEnd,
+  setGradientDirection,
+  setGradientOpacity,
+}) => (
+
+  
+  <Box mb={4} width="100%">
+    <br />
+    <Text color="white" fontWeight="bold" mb={2}>
+      Fundo e Gradiente
+    </Text>
+    <Slider
+      aria-label="Transparência do gradiente"
+      defaultValue={gradientOpacity * 100}
+      onChange={(val) => setGradientOpacity(val / 100)}
+    >
+      <SliderTrack>
+        <SliderFilledTrack />
+      </SliderTrack>
+      <SliderThumb />
+    </Slider>
+    <Input
+      type="color"
+      value={gradientStart}
+      onChange={(e) => setGradientStart(e.target.value)}
+      mb={2}
+      aria-label="Cor inicial do gradiente"
+    />
+    <Input
+      type="color"
+      value={gradientEnd}
+      onChange={(e) => setGradientEnd(e.target.value)}
+      mb={2}
+      aria-label="Cor final do gradiente"
+    />
+    <Select
+      value={gradientDirection}
+      onChange={(e) => setGradientDirection(e.target.value)}
+      bg="white"
+      color="black"
+      aria-label="Direção do gradiente"
+    >
+       <option value="to bottom">Vertical (para baixo)</option>
+  <option value="to top">Vertical (para cima)</option>
+  <option value="to right">Horizontal (para a direita)</option>
+  <option value="to left">Horizontal (para a esquerda)</option>
+  <option value="to bottom right">Diagonal (para baixo à direita)</option>
+  <option value="to top left">Diagonal (para cima à esquerda)</option>
+  <option value="to bottom left">Diagonal (para baixo à esquerda)</option>
+  <option value="to top right">Diagonal (para cima à direita)</option>
+  <option value="135deg">Ângulo de 135 graus</option>
+  <option value="225deg">Ângulo de 225 graus</option>
+    </Select>
+    
+    
+  </Box>
+   
+);
 
 const TextGenerator = () => {
+  // State Variables
   const [textColor, setTextColor] = useState("#ffffff");
   const [name, setName] = useState("");
   const [showNameAlert, setShowNameAlert] = useState(false);
@@ -37,41 +105,163 @@ const TextGenerator = () => {
   const [phraseSize, setPhraseSize] = useState(2.5);
   const [textAlign, setTextAlign] = useState("center");
   const [textShadow, setTextShadow] = useState("none");
-  const [newFrase, setNewFrase] = useState("");
   const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0);
+  const [phraseCategory, setPhraseCategory] = useState("general");
+  const [apiError, setApiError] = useState("");
 
-  const fetchFrases = async () => {
-    const response = await fetch('/api/frases');
-    const data = await response.json();
-    setGreetingMessages(data);
+
+
+  const TextGenerator = () => {
+    // Hook deve estar dentro do componente
+    const [isMobile] = useMediaQuery("(max-width: 768px)");
+  
+    return (
+      <Flex
+        direction={isMobile ? "column" : "row"}
+        justifyContent="center"
+        alignItems="center"
+        p={4}
+      >
+        <Box width={isMobile ? "100%" : "40%"}>Controles</Box>
+        <Box width={isMobile ? "100%" : "60%"}>Pré-visualização</Box>
+      </Flex>
+    );
   };
 
-  const addFrase = async () => {
-    if (!newFrase) return;
-    const response = await fetch('/api/frases', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ frase: newFrase }),
-    });
-    await fetchFrases();
-    setNewFrase("");
-    return response.json();
-  };
+  const [theme, setTheme] = useState("default");
 
-  const changePhrase = () => {
-    if (greetingMessages.length > 0) {
-      setCurrentPhraseIndex((prevIndex) => (prevIndex + 1) % greetingMessages.length);
+  const themes = {
+    default: { gradientStart: "#000000", gradientEnd: "#ffffff" },
+    sunset: { gradientStart: "#ff7e5f", gradientEnd: "#feb47b" },
+    ocean: { gradientStart: "#00c6ff", gradientEnd: "#0072ff" },
+    forest: { gradientStart: "#11998e", gradientEnd: "#38ef7d" },
+    twilight: { gradientStart: "#6441a5", gradientEnd: "#2a0845" },
+  };
+  
+  const applyTheme = (selectedTheme) => {
+    const themeColors = themes[selectedTheme];
+    if (themeColors) {
+      setGradientStart(themeColors.gradientStart);
+      setGradientEnd(themeColors.gradientEnd);
+      setTheme(selectedTheme);
     }
   };
+  
+<Box mb={4}>
+  <Text color="white" fontWeight="bold" mb={2}>
+    Escolher Tema
+  </Text>
+  <Select
+    value={theme}
+    onChange={(e) => applyTheme(e.target.value)}
+    bg="white"
+    color="black"
+  >
+    {Object.keys(themes).map((themeKey) => (
+      <option key={themeKey} value={themeKey}>
+        {themeKey.charAt(0).toUpperCase() + themeKey.slice(1)}
+      </option>
+    ))}
+  </Select>
+</Box>
+  
+  // Componente de Dropzone
+  const ImageDropzone = ({ setBackgroundImage }) => {
+    const onDrop = useCallback(
+      (acceptedFiles) => {
+        const file = acceptedFiles[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = () => setBackgroundImage(reader.result);
+          reader.readAsDataURL(file);
+        }
+      },
+      [setBackgroundImage]
+    );
 
+    const { getRootProps, getInputProps, isDragActive } = useDropzone({
+      onDrop,
+      accept: {
+        'image/jpeg': ['.jpeg', '.jpg'],
+        'image/png': ['.png'],
+        'image/gif': ['.gif'],
+        'image/webp': ['.webp'],
+      },
+    });
+    
+
+    return (
+      <Box
+        {...getRootProps()}
+        p={4}
+        border="2px dashed white"
+        borderRadius="md"
+        bg={"black"}
+        color="white"
+        cursor="pointer"
+        textAlign="center"
+        mb={4}
+        className="baix-img"
+        
+      >
+        <input {...getInputProps()} />
+        {isDragActive ? (
+          <Text>Solte a imagem aqui...</Text>
+        ) : (
+          <Text className="black">Arraste uma imagem ou clique para fazer upload. </Text>
+        )}
+      </Box>
+    );
+  };
+
+  // Estilo de fundo memoizado
+  const backgroundStyle = useMemo(() => {
+    return {
+      backgroundImage: backgroundImage ? `url(${backgroundImage})` : "",
+      backgroundSize: "cover",
+      backgroundPosition: "center",
+      backgroundRepeat: "no-repeat",
+    };
+  }, [backgroundImage]);
+
+  // Estilo do gradiente memoizado
+  const gradientStyle = useMemo(() => {
+    return `linear-gradient(${gradientDirection}, ${gradientStart}, ${gradientEnd})`;
+  }, [gradientDirection, gradientStart, gradientEnd]);
+
+  // Fetch phrases from API
+  const fetchFrases = useCallback(async () => {
+    try {
+      const response = await fetch(
+        `/api/frases?category=${phraseCategory}&name=${name}`
+      );
+      if (!response.ok) throw new Error("Erro ao carregar frases.");
+      const data = await response.json();
+      setGreetingMessages(data || []);
+      setApiError("");
+    } catch (error) {
+      console.error("Erro ao carregar frases:", error);
+      setApiError("Não foi possível carregar as frases.");
+    }
+  }, [phraseCategory, name]);
+
+  // Change Greeting Phrase
+  const changePhrase = useCallback(() => {
+    if (greetingMessages.length > 0) {
+      setCurrentPhraseIndex(
+        (prevIndex) => (prevIndex + 1) % greetingMessages.length
+      );
+    }
+  }, [greetingMessages]);
+
+  // Validate Name Input
   const validateName = useCallback(() => {
-    const isValid = name && /^[a-zA-Z\s]{1,20}$/.test(name);
+    const isValid = name && /^[a-zA-ZÀ-ÿ\s'-]{1,20}$/.test(name);
     setShowNameAlert(!isValid);
     return isValid;
   }, [name]);
 
+  // Handle Image Download
   const handleDownload = useCallback(() => {
     if (!validateName()) return;
 
@@ -94,35 +284,11 @@ const TextGenerator = () => {
         setLoading(false);
       });
   }, [validateName]);
-<br/>
-  const { getRootProps, getInputProps } = useDropzone({
-    accept: {
-      'image/jpeg': ['.jpeg ', '.jpg'],
-      'image/png': ['.png']
-    },
-    onDrop: useCallback((acceptedFiles) => {
-      const file = acceptedFiles[0];
-      const validMimeTypes = ["image/jpeg", "image/png"];
-  
-      if (!file || !validMimeTypes.includes(file.type) || file.size > 2 * 1024 * 1024) {
-        setDownloadFeedback("Por favor, escolha uma imagem válida (PNG ou JPEG) com até 2MB.");
-        return;
-      }
-  
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        const imageUrl = e.target.result;
-        setBackgroundImage(imageUrl);
-      };
-      reader.readAsDataURL(file);
-    }, []),
-  });
 
   useEffect(() => {
     fetchFrases();
-  }, []);
+  }, [fetchFrases, name]);
 
-  <br/>
   return (
     <Flex
       minH="100vh"
@@ -130,233 +296,241 @@ const TextGenerator = () => {
       alignItems="center"
       justifyContent="center"
       p={3}
+      maxWidth="90%"
+      mx="auto"
     >
-      <Input
-        placeholder="Digite seu nome e veja"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        mb={1}
-        borderRadius="md"
-        width={"350px"}
-        fontSize="1.5rem"
-        bg="white"
-        aria-label="Nome"
-        pattern="^[a-zA-Z\s]{0,20}$"
+     
+      
+      {/* Texto e Nome */}
+      <Box mb={4} width="100%" >
+         
+        <div className="purple">
+        <Text   color="white" fontWeight="700"  fontFamily={" Nunito, sans-serif;"} mb={2} >
+        Nome
+        </Text>
+       
+        <Input
+          placeholder={`Digite seu nome ${phraseCategory === "names" ? "e veja" : ""}`}
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          mb={1}
+          borderRadius="md"
+          maxLength={20}
+          width={"320px"}
+          fontSize="1.5rem"
+          bg="white"
+          aria-label="Nome"
+          
+        />
+         <p className="p-tutor">Escreva seu nome aí em cima e veja uma frase inspiradora.</p>
+
+        {showNameAlert && (
+          <Alert status="error" borderRadius="md" mb={2}>
+            <AlertIcon />
+            Nome inválido. Use até 20 caracteres, letras, acentos, apóstrofos e hífens.
+          </Alert>
+        )}
+        
+</div>
+<br />
+        <div className="green">
+        <Box mb={4} width="100%">
+  <Text color="white" fontWeight="700"  fontFamily={" Nunito, sans-serif;"}  mb={2}>
+    Cor do Texto
+  </Text>
+  <Input
+    type="color"
+    value={textColor}
+    onChange={(e) => setTextColor(e.target.value)}
+    aria-label="Cor do Texto"
+    width={"320px"}
+    height="40px"
+    bg="white"
+  />
+   <p className="p-tutorColor">Clique e mude a cor do seu texto do seu jeito.</p>
+</Box>
+
+</div>
+
+<br />
+
+<div className="orange ">
+<Box mb={4} width="100%">
+  <Text color="white" fontWeight="700" fontFamily={" Nunito, sans-serif;"}   mb={2}>
+    Tamanho do Nome
+  </Text>
+  <Slider
+    aria-label="Tamanho do Nome"
+    value={nameSize}
+    onChange={(val) => setNameSize(val)}
+    min={1}
+    max={10}
+    step={0.1}
+    mb={2}
+  >
+    <SliderTrack>
+      <SliderFilledTrack />
+    </SliderTrack>
+    <SliderThumb />
+  </Slider>
+  <p className="p-tutorMova">Mova a bolinha para o lado esquerdo ou direito para mudar o tamanho do seu nome.</p>
+  <Text color="white" fontSize="sm" textAlign="center">
+   
+  </Text>
+</Box>
+</div>
+<br />
+ 
+<div className="pink">
+<Box mb={4} width="100%">
+  <Text color="white" fontWeight="700"  fontFamily={" Nunito, sans-serif;"}  mb={2}>
+    Tamanho da Frase
+  </Text>
+  <Slider
+    aria-label="Tamanho da Frase"
+    value={phraseSize}
+    onChange={(val) => setPhraseSize(val)}
+    min={1}
+    max={10}
+    step={0.1}
+    mb={2}
+  >
+    <SliderTrack>
+      <SliderFilledTrack />
+    </SliderTrack>
+    <SliderThumb />
+  </Slider>
+  
+  <Text color="white" fontSize="sm" textAlign="center">
+  </Text>
+  <p className="p-tutorMova">Mova a bolinha para o lado esquerdo ou direito para mudar o tamanho da sua frase.</p>
+
+  <div className="posicionamento-texto">
+  <br/>
+  <Box mb={4} width="100%">
+    <Text color="white" fontWeight="700" fontFamily={"Nunito, sans-serif"} mb={2}>
+      Posição do Texto
+    </Text>
+    <Select
+      value={textAlign}
+      onChange={(e) => setTextAlign(e.target.value)}
+      bg="white"
+      color="black"
+      mb={2}
+    >
+      <option value="center">Centro</option>
+      <option value="flex-start">Em Cima</option>
+      <option value="flex-end">Embaixo</option>
+      <option value="row">Ao Lado</option>
+    </Select>
+  </Box>
+ 
+  <p className="p-tutor-posicao">Escolha onde posicionar o texto na imagem.</p>
+</div>
+
+
+</Box>
+</div>
+
+<br />
+      <div className="yellow tam-Fontes">
+      <Box>
+        <Text color="white" fontWeight="700"  fontFamily={" Nunito, sans-serif;"} mb={2}>
+          Tipos de Frases
+        </Text>
+        <Select
+          value={phraseCategory}
+          onChange={(e) => setPhraseCategory(e.target.value)}
+          bg="white"
+          color="black"
+          mb={2}
+        >
+          <option value="general">Frases Gerais</option>
+<option value="names">Frases com Nome</option>
+<option value="parameuamor">Para meu amor</option>
+<option value="celebrations">Frases de Celebrações</option>
+<option value="inspirational">Frases Inspiradoras</option>
+<option value="love">Frases de Amor</option>
+<option value="funny">Frases Divertidas</option>
+<option value="friendship">Frases de Amizade</option>
+<option value="motivational">Frases Motivacionais</option>
+<option value="spiritual">Frases Religiosas/Espirituais</option>
+<option value="welcome">Frases de Boas-Vindas</option>
+<option value="farewell">Frases de Despedida</option>
+<option value="gratitude">Frases de Agradecimento</option>
+<option value="thoughtful">Frases de Reflexão</option>
+<option value="seasonal">Frases Sazonais</option>
+
+        </Select>
+
+      </Box>
+      <p className="p-tutorTiposdeFrase">Selecione o seu tipo de frase e gere sua inspiração. Abaixo, personalize mudando a cor do gradiente 1 e gradiente 2 do seu jeito.</p>
+      
+
+      <GradientControls
+        gradientStart={gradientStart}
+        gradientEnd={gradientEnd}
+        gradientDirection={gradientDirection}
+        gradientOpacity={gradientOpacity }
+        setGradientStart={setGradientStart}
+        setGradientEnd={setGradientEnd}
+        setGradientDirection={setGradientDirection}
+        setGradientOpacity={setGradientOpacity}
       />
-      <br />
-
-      <Box
-        {...getRootProps()}
-        border="2px dashed #ccc"
-        borderRadius="md"
-        p={4}
-        mb={4}
-        textAlign="center"
-      >
-        <input {...getInputProps()} />
-        <Text color="white">Arraste e solte uma imagem aqui, ou clique</Text>
-        <Text fontSize="sm" color="white">Aceito: PNG e JPEG | Tamanho máximo: 2MB</Text>
+      
+      <ImageDropzone setBackgroundImage={setBackgroundImage} />
+      </div>
+<br />
+      
+      <div className="green-2">
+      <Box mb={4} width="100%" >
+        <Text color="white" fontWeight="700"  fontFamily={" Nunito, sans-serif;"} mb={2}>
+          Fontes
+        </Text>
+        <Select
+          value={fontFamily}
+          onChange={(e) => setFontFamily(e.target.value)}
+          bg="white"
+          color="black"
+         
+        >
+        
+           <option value="Roboto">Roboto</option>
+  <option value="Arial">Arial</option>
+  <option value="Times New Roman">Times New Roman</option>
+  <option value="Open Sans">Open Sans</option>
+  <option value="Lato">Lato</option>
+  <option value="Montserrat">Montserrat</option>
+  <option value="Poppins">Poppins</option>
+  <option value="Raleway">Raleway</option>
+  <option value="Nunito">Nunito</option>
+  <option value="Source Sans Pro">Source Sans Pro</option>
+  <option value="Merriweather">Merriweather</option>
+  <option value="Georgia">Georgia</option>
+  <option value="Verdana">Verdana</option>
+  <option value="Courier New">Courier New</option>
+  <option value="Tahoma">Tahoma</option>
+  <option value="Comic Sans MS">Comic Sans MS</option>
+  <option value="Oswald">Oswald</option>
+  <option value="Dancing Script">Dancing Script</option>
+  <option value="Lora">Lora</option>
+  <option value="Quicksand">Quicksand</option>
+  <option value="Playfair Display">Playfair Display</option>
+        </Select>
       </Box>
-
-      {showNameAlert && (
-        <Alert status="error" mb={4}>
-          <AlertIcon />
-          Por favor, insira um nome válido (apenas letras e até 20 caracteres).
-        </Alert>
-      )}
-
-      <Box width={{ base: "90%", sm: "90vw", md: "400px" }} p={4} borderRadius="md" mb={4}>
-        <Accordion allowToggle>
-          <AccordionItem>
-            <AccordionButton>
-              <Box flex="1" textAlign="left" color={"white"}>
-                Configurações de Texto e Nome
-              </Box>
-              <AccordionIcon />
-            </AccordionButton>
-            <AccordionPanel pb={4}>
-              <Box mb={4}>
-                <Text color="white">Cor do Texto</Text>
-                <Input
-                  type="color"
-                  value={textColor}
-                  onChange={(e) => setTextColor(e.target.value)}
-                  width="100%"
-                />
-              </Box>
-              <Box mb={4}>
-                <Text color="white">Alinhamento do Texto</Text>
-                <Select
-                  value={textAlign}
-                  onChange={(e) => setTextAlign(e.target.value)}
-                  bg="white"
-                  color="black"
-                >
-                  <option value="left">Esquerda</option>
-                  <option value="center">Centro</option>
-                  <option value="right">Direita</option>
-                </Select>
-              </Box>
-              <Box mb={4}>
-                <Text color="white">Sombra do Texto</Text>
-                <Select
-                  value={textShadow}
-                  onChange={(e) => setTextShadow(e.target.value)}
-                  bg="white"
-                  color="black"
-                >
-                  <option value="none">Nenhuma</option>
-                  <option value="2px 2px 5px rgba(0, 0, 0, 0.5)">Sombra</option>
-                  <option value="3px 3px 8px rgba(0, 0, 0, 0.7)">Sombra forte</option>
-                </Select>
-              </Box>
-              <Box width="100%" mb={4}>
-                <Text color="white">Tamanho do Nome</Text>
-                <Input
-                  type="range"
-                  min="1"
-                  max="10"
-                  step="0.1"
-                  value={nameSize}
-                  onChange={(e) => setNameSize(e.target.value)}
-                  width="100%"
-                />
-              </Box>
-              <Box width="100%" mb={4}>
-                <Text color="white">Tamanho da Frase</Text>
-                <Input
-                  type="range"
-                  min="1"
-                  max="10"
-                  step="0.1"
-                  value={phraseSize}
-                  onChange={(e) => setPhraseSize(e.target.value)}
-                  width="100%"
-                />
-              </Box>
-            </AccordionPanel>
-          </AccordionItem>
-          <AccordionItem>
-            <AccordionButton>
-              <Box flex="1" textAlign="left" color={"white"}>
-                Configurações de Fundo e Gradiente
-              </Box>
-              <AccordionIcon />
-            </AccordionButton>
-            <AccordionPanel pb={4}>
-              <Flex mb={4} justify="space-between" align="center">
-                <Box width="48%">
-                  <Text color="white">Cor 1</Text>
-                  <Input
-                    type="color"
-                    value={gradientStart}
-                    onChange={(e) => setGradientStart(e.target .value)}
-                    width="100%"
-                  />
-                </Box>
-                <Box width="48%">
-                  <Text color="white">Cor 2</Text>
-                  <Input
-                    type="color"
-                    value={gradientEnd}
-                    onChange={(e) => setGradientEnd(e.target.value)}
-                    width="100%"
-                  />
-                </Box>
-              </Flex>
-              <Select
-                placeholder="Direção do gradiente"
-                onChange={(e) => setGradientDirection(e.target.value)}
-                mb={4}
-                bg="white"
-                color="black"
-              >
-                <option value="to bottom">De cima para baixo</option>
-                <option value="to top">De baixo para cima</option>
-                <option value="to right">Da esquerda para a direita</option>
-                <option value="to left">Da direita para a esquerda</option>
-                <option value="to top right">Diagonal superior direita</option>
-                <option value="to top left">Diagonal superior esquerda</option>
-                <option value="to bottom right">Diagonal inferior direita</option>
-                <option value="to bottom left">Diagonal inferior esquerda</option>
-              </Select>
-              <Box>
-                <Text color="white">Opacidade do gradiente</Text>
-                <Input
-                  type="range"
-                  min="0"
-                  max="1"
-                  step="0.1"
-                  value={gradientOpacity}
-                  onChange={(e) => setGradientOpacity(parseFloat(e.target.value))}
-                  width="100%"
-                />
-              </Box>
-            </AccordionPanel>
-          </AccordionItem>
-          <AccordionItem>
-            <AccordionButton>
-              <Box flex="1" textAlign="left" color={"white"}>
-                Configurações de Fonte
-              </Box>
-              <AccordionIcon />
-            </AccordionButton>
-            <AccordionPanel pb={4}>
-              <Box mb={4}>
-                <Text color="white">Fonte</Text>
-                <Select
-                  value={fontFamily}
-                  onChange={(e) => setFontFamily(e.target.value)}
-                  bg="white"
-                  color="black"
-                >
-                  <option value="Roboto">Roboto</option>
-                  <option value="Arial">Arial</option>
-                  <option value="Helvetica">Helvetica</option>
-                  <option value="Georgia">Georgia</option>
-                  <option value="Courier New">Courier New</option>
-                  <option value="Times New Roman">Times New Roman</option>
-                  <option value="Verdana">Verdana</option>
-                  <option value="Trebuchet MS">Trebuchet MS</option>
-                  <option value="Lucida Sans">Lucida Sans</option>
-                  <option value="Comic Sans MS">Comic Sans MS</option>
-                  <option value="Impact">Impact</option>
-                  <option value="Palatino">Palatino</option>
-                  <option value="Garamond">Garamond</option>
-                  <option value="Tahoma">Tahoma</option>
-                  <option value="Bookman">Bookman</option>
-                  <option value="Brush Script MT">Brush Script MT</option>
-                  <option value="Poppins">Poppins</option>
-                  <option value="Lato">Lato</option>
-                  <option value="Montserrat">Montserrat</option>
-                  <option value="Open Sans">Open Sans</option>
-                  <option value="Raleway">Raleway</option>
-                  <option value="Quicksand">Quicksand</option>
-                  <option value="Nunito">Nunito</option>
-                  <option value="Merriweather">Merriweather</option>
-                  <option value="Playfair Display">Playfair Display</option>
-                  <option value="Oswald">Oswald</option>
-                  <option value="Fira Sans">Fira Sans</option>
-                </Select>
-              </Box>
-            </AccordionPanel>
-          </AccordionItem>
-        </Accordion>
-      </Box>
-
+      <p className="p-tutorTiposdeFrase">Selecione acima a sua fonte para personalizar sua frase</p>
+      </div>
+        
+      {/*  Preview */}
       <Box
         id="text-image"
         position="relative"
-        width="100%"
-        maxWidth="360px"
-        height="640px"
-        style={{
-          backgroundImage: backgroundImage ? `url(${backgroundImage})` : "",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
+        width={"360px"}
+        height={"640px"}
+        style={backgroundStyle}
         boxShadow="lg"
         overflow="hidden"
+       
       >
         <Box
           position="absolute"
@@ -364,94 +538,67 @@ const TextGenerator = () => {
           left={0}
           width="100%"
           height="100%"
-          bg={`linear-gradient(${gradientDirection}, ${gradientStart}, ${gradientEnd})`}
+          bg={gradientStyle}
           opacity={gradientOpacity}
         />
-        
         <Flex
-          position="relative"
-          direction="column"
-          align="center"
-          justify="center"
-          height="100%"
-          color={textColor}
-          fontFamily={fontFamily}
-          textAlign={textAlign}
-          textShadow={textShadow}
-        >
-          <Text fontSize={`${nameSize}rem`} fontWeight="bold">
-            {name}
-          </Text>
-          <Flex align="center">
-            <Text fontSize={`${phraseSize}rem`}>
-              {greetingMessages[currentPhraseIndex]}
-            </Text>
-          </Flex>
-        </Flex>
-
-        <Box
-          position="absolute"
-          bottom={2}
-          left="83%"
-          transform="translateX(-50%)"
-          width="100px"
-          height="auto"
-          zIndex={9999}
-        >
-          <img
-            src="/efrasesmarcadagua.png"
-            alt="Logo efrases"
-            style={{ width: "100%", height: "auto" }}
-          />
-        </Box>
+  position="relative"
+  direction={textAlign === "row" ? "row" : "column"}
+  align="center"
+  justify={textAlign === "center" ? "center" : textAlign}
+  width="360px"
+  height="100%"
+  color={textColor}
+  fontFamily={fontFamily}
+  textAlign={textAlign === "row" ? "left" : "center"}
+  textShadow={textShadow}
+>
+  <Text fontSize={`${nameSize}rem`} fontWeight="bold">
+    {name}
+  </Text>
+  <Text fontSize={`${phraseSize}rem`} fontWeight="semibold">
+    {greetingMessages[currentPhraseIndex]}
+  </Text>
+</Flex>
       </Box>
 
-      <Flex mt={4}>
-        <IconButton
-          aria-label="Mostrar todas as frases"
-          icon={<RepeatIcon />}
-          onClick={changePhrase}
-          variant="outline"
-          colorScheme="whiteAlpha"
-          size="sm"
-          color={"white"}
-          ml={2}
-        />
+      {/* Controles */}
+      <div className="control">
+      <Flex mt={4} gap={2}>
+        <Button colorScheme="blue" onClick={changePhrase}>
+          Nova Frase
+        </Button>
+        <Button
+          colorScheme="green"
+          onClick={handleDownload}
+          isLoading={loading}
+          alignItems={"center"}
+        >
+          Baixar
+        </Button>
       </Flex>
-
-      <Button colorScheme="blue" onClick={handleDownload} mt={4} isDisabled={loading}>
-        {loading ? <Spinner size="sm" /> : "Baixar Imagem"}
-      </Button>
-      <br />
-
+      </div>
       {downloadFeedback && (
-        <Text color="white" mt={2}>
+        <Alert status="info" borderRadius="md" mt={4}>
+          <AlertIcon />
           {downloadFeedback}
-        </Text>
+        </Alert>
       )}
+{apiError && (
+  <Alert status="error" borderRadius="md" mt={4}>
+    <AlertIcon />
+    {apiError}
+  </Alert>
+)}
+ <div className="espaco-1">
+    1
+  </div>
 
-      <br /><br /><br />
-      <Box
-        as="footer"
-        width={"1900px"}
-        bg="gray.800"
-        color="white"
-        p={6}
-        textAlign="center"
-        mb={-8}
-      >
-        <Text>&copy; 2024 efrases. Todos os direitos reservados.</Text>
-        <Text fontSize="sm">
-          <a href="https://www.meusite.com" target="_blank" rel="noopener noreferrer">
-            Política de Privacidade
-          </a>{" "} | {" "}
-          <a href="https://www.meusite.com" target="_blank" rel="noopener noreferrer">
-            Termos de Uso
-          </a>
-        </Text>
-      </Box>
+    </Box>   
     </Flex>
+    
   );
+ 
 };
 
 export default TextGenerator;

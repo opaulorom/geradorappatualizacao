@@ -1,5 +1,5 @@
 import TextGenerator from "../components/TextGenerator";
-import logo from "/public/efrases.png"; // Certifique-se de que o caminho está correto
+import Footer from "../components/Footer";
 
 export default function Home() {
   return (
@@ -10,7 +10,7 @@ export default function Home() {
         justifyContent: "center",
         alignItems: "center",
         paddingTop: "70px",
-        background: "linear-gradient(135deg, #081151, #081151)", // Exemplo de gradiente
+        background: "linear-gradient(135deg, #161620, #081151)", // Exemplo de gradiente
       }}
     >
       {/* Logo */}
@@ -22,6 +22,9 @@ export default function Home() {
 
       {/* Componente TextGenerator */}
       <TextGenerator />
+
+      {/* Footer */}
+      <Footer />
     </div>
   );
 }

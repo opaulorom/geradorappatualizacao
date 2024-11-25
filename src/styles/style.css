@@ -3,9 +3,12 @@
   .text-container {
     max-width: 100%;
     /* estilos específicos para telas muito pequenas */
+    width: "395px",
   }
 
-
+  .footer-editt{
+    background-color: #6a00ff;
+  }
  
 }
 
@@ -52,49 +55,49 @@
 
 .purple {
   background: linear-gradient(135deg, #6a00ff, #9b00ff);
-  width: 363px;
+  width: 305px;
   padding: 20px;
   border-radius: 10px 10px 10px 10px;
 }
 
 .orange {
   background: linear-gradient(135deg, #ff8a00, #ffcd00);
-  width: 363px;
+  width: 305px;
   padding: 20px;
   border-radius: 10px 10px 10px 10px;
 }
 
 .pink {
   background: linear-gradient(135deg, #ff4b8a, #ff79c6);
-  width: 363px;
+  width: 305px;
   padding: 20px;
   border-radius: 10px 10px 10px 10px;
 }
 
 .blue {
   background: linear-gradient(135deg, #00aaff, #00d4ff);
-  width: 363px;
+  width: 305px;
   padding: 20px;
   border-radius: 10px 10px 10px 10px;
 }
 
 .yellow {
   background: linear-gradient(135deg, #ffc107, #ffec3d);
-  width: 363px;
+  width: 305px;
   padding: 20px;
   border-radius: 10px 10px 10px 10px;
 }
 
 .green {
   background: linear-gradient(135deg, #00c853, #69f0ae);
-  width: 363px;
+  width: 305px;
   padding: 20px;
   border-radius: 10px 10px 10px 10px;
 }
 
 .green-2 {
   background: linear-gradient(135deg, #08e2c5, #69f0ae);
-  width: 363px;
+  width: 305px;
   padding: 20px;
   border-radius: 10px 10px 10px 10px;}
 
@@ -102,8 +105,9 @@
   display: flex;
   text-align: center;
   align-items: center;
-  width: 363px;
+  width: 310px;
   justify-content: space-around;
+
  
 }
 
@@ -133,11 +137,7 @@
   color: #ffffff;
 }
 
-.baix-img{
- 
-  border: 1px solid red;
-  
-}
+
 
 .p-tutor-Abaixa-Img2 {
 
@@ -147,15 +147,59 @@
 
 
 
-#text-image{
- 
-  margin-top: 15px;
-  display: flex;
-}
+
 
 
 .espaco-1{
   width: 100%;
   height: 500px;
+ align-items: center;
+}
+
+.edit-TiposBaixar{
  
+  margin-top: 40px;
+ background-color: #080808;
+ 
+  display: flex;
+}
+
+.edit-select:hover{
+  background-color: #00c853;
+}
+
+
+header img {
+  margin-left: 130px;
+  
+  
+}
+
+
+.ceodesktop{
+  border-radius: 1px red solid;
+ margin-bottom: -28px;
+}
+
+
+.conteudofooter{
+  margin-bottom: -100px;
+  background-color: #1f1f20;
+  
+
+}
+
+
+.conteudofootermobile{
+  margin-bottom: -100px;
+  background-color: #1f1f20;
+  width: 375px;
+  
+
+}
+
+.ceodesktopmobile{
+
+ margin-bottom: -26px;
+ padding: 13px;
 }

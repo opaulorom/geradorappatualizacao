@@ -1,10 +1,10 @@
 // pages/_app.js
 import { ChakraProvider } from '@chakra-ui/react';
 import '../styles/style.css';
+import '../styles/stylephone.css';
 
 
-import "@fontsource/roboto"; // Roboto
-import "@fontsource/open-sans"; // Open Sans
+
 
 function MyApp({ Component, pageProps }) {
   return (

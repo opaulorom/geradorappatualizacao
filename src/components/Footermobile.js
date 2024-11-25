@@ -2,23 +2,26 @@ import { Box, Text } from "@chakra-ui/react";
 import Image from "next/image";
 
 const Footer = () => (
+  
   <Box
     as="footer"
     bg="black"
     color="white"
     borderTop="2px solid #00aaff"
     borderRadius="10px 10px 0 0"
-    width="116%"
+    width="50"
     mt="auto" // Garante que o rodapé seja empurrado para baixo
     textAlign="center"
   >
+    
     {/* Contêiner principal */}
+    
     <Box
-      maxWidth={{ base: "100%", md: "1700px" }}
+      maxWidth={{ base: "100%", md: "100px" }}
       mx="auto"
       px={{ base: 4, md: 8, lg: 16 }}
       py={{ base: 6, md: 8 }}
-      className="conteudofooter"
+      className="conteudofootermobile"
     >
       {/* Título */}
       <Text
@@ -48,7 +51,7 @@ const Footer = () => (
       <Text
         fontSize={{ base: "xs", md: "sm" }}
         mb={6}
-        maxWidth={{ base: "90%", md: "1000px" }}
+        maxWidth={{ base: "90%", md: "100px" }}
         mx="auto"
         lineHeight="1.6"
         aria-label="Mensagem de agradecimento"
@@ -79,7 +82,7 @@ const Footer = () => (
         mt={6}
         lineHeight="1.4"
         aria-label="Copyright"
-        className="ceodesktop"
+        className="ceodesktopmobile"
       >
         © 2024 Copyright efrases.com.br - Todos os direitos reservados.
       </Text>

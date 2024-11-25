@@ -113,6 +113,7 @@ const frases = {
     "Sua alma conhece o caminho, siga-a.",
     "A serenidade vem da conexão com o espírito.",
     "Cada dia é uma bênção para agradecer.",
+    "jovens seguindo a cristo"
    
   ],
   welcome: [

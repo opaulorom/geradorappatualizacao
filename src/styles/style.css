@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 
 .controlphone {
   display: flex;
@@ -8,20 +7,6 @@
   flex-shrink: 0; 
 
   
-=======
-/* Dispositivos menores que 350px (por exemplo, celulares muito pequenos) */
-@media (max-width: 349px) {
-  .text-container {
-    max-width: 100%;
-    /* estilos específicos para telas muito pequenas */
-    width: "395px",
-  }
-
-  .footer-editt{
-    background-color: #6a00ff;
-  }
- 
->>>>>>> db8a886ada88c71795954e05d070a9d4ac4db14f
 }
 
 .controlphone2{
@@ -48,79 +33,48 @@
 
 .purple {
   background: linear-gradient(135deg, #6a00ff, #9b00ff);
-<<<<<<< HEAD
   
   padding: 30px;
-=======
-  width: 305px;
-  padding: 20px;
->>>>>>> db8a886ada88c71795954e05d070a9d4ac4db14f
   border-radius: 10px 10px 10px 10px;
 }
 
 .orange {
   background: linear-gradient(135deg, #ff8a00, #ffcd00);
-<<<<<<< HEAD
  
   padding: 30px;
-=======
-  width: 305px;
-  padding: 20px;
->>>>>>> db8a886ada88c71795954e05d070a9d4ac4db14f
   border-radius: 10px 10px 10px 10px;
 }
 
 .pink {
   background: linear-gradient(135deg, #ff4b8a, #ff79c6);
-<<<<<<< HEAD
  
   padding: 30px;
-=======
-  width: 305px;
-  padding: 20px;
->>>>>>> db8a886ada88c71795954e05d070a9d4ac4db14f
   border-radius: 10px 10px 10px 10px;
 }
 
 .blue {
   background: linear-gradient(135deg, #00aaff, #00d4ff);
-<<<<<<< HEAD
  
   padding: 30px;
-=======
-  width: 305px;
-  padding: 20px;
->>>>>>> db8a886ada88c71795954e05d070a9d4ac4db14f
   border-radius: 10px 10px 10px 10px;
 }
 
 .yellow {
   background: linear-gradient(135deg, #ffc107, #ffec3d);
-<<<<<<< HEAD
 
   padding: 30px;
-=======
-  width: 305px;
-  padding: 20px;
->>>>>>> db8a886ada88c71795954e05d070a9d4ac4db14f
   border-radius: 10px 10px 10px 10px;
 }
 
 .green {
   background: linear-gradient(135deg, #00c853, #69f0ae);
-<<<<<<< HEAD
  
   padding: 30px;
-=======
-  width: 305px;
-  padding: 20px;
->>>>>>> db8a886ada88c71795954e05d070a9d4ac4db14f
   border-radius: 10px 10px 10px 10px;
 }
 
 .green-2 {
   background: linear-gradient(135deg, #08e2c5, #69f0ae);
-<<<<<<< HEAD
 
   padding: 30px;
   border-radius: 10px 10px 10px 10px;
@@ -128,11 +82,6 @@
 
 }
  
-=======
-  width: 305px;
-  padding: 20px;
-  border-radius: 10px 10px 10px 10px;}
->>>>>>> db8a886ada88c71795954e05d070a9d4ac4db14f
 
 .control{
   display: flex;
@@ -217,11 +166,7 @@ header img {
 
 .conteudofooter{
   margin-bottom: -100px;
-<<<<<<< HEAD
   background-color: #3535b9;
-=======
-  background-color: #1f1f20;
->>>>>>> db8a886ada88c71795954e05d070a9d4ac4db14f
   
 
 }
@@ -230,11 +175,7 @@ header img {
 .conteudofootermobile{
   margin-bottom: -100px;
   background-color: #1f1f20;
-<<<<<<< HEAD
   width: 413px;
-=======
-  width: 375px;
->>>>>>> db8a886ada88c71795954e05d070a9d4ac4db14f
   
 
 }
@@ -243,12 +184,11 @@ header img {
 
  margin-bottom: -26px;
  padding: 13px;
-<<<<<<< HEAD
 }
 
 
 
-.edit-logo{
+.logo-edit{
  
   margin-left: 16px;
 }
@@ -264,7 +204,7 @@ header img {
 .edit-bot{
   padding: 15px ;
   display: flex;
-  margin-top: -5px;
+ 
 
   
 }
@@ -272,6 +212,4 @@ header img {
 button, .bot-1{
   padding: 3px;
   
-=======
->>>>>>> db8a886ada88c71795954e05d070a9d4ac4db14f
 }

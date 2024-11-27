@@ -3,10 +3,7 @@ import TextGeneratorDesktop from "../components/TextGeneratorDesktop";
 import TextGeneratorMobile from "../components/TextGeneratorMobile";
 import Footer from "../components/Footer";
 import Footermobile from "../components/Footermobile";
-<<<<<<< HEAD
 
-=======
->>>>>>> db8a886ada88c71795954e05d070a9d4ac4db14f
 
 export default function Home() {
     const [isMobile, setIsMobile] = useState(false);
@@ -22,44 +19,10 @@ export default function Home() {
         return () => window.removeEventListener("resize", handleResize);
     }, []);
 
-<<<<<<< HEAD
     const gradient = isMobile
         ? "linear-gradient(135deg, #181F6D, #404090)" // Mobile
         : "linear-gradient(180deg, #181F6D, #2D2D73)"; // Desktop
 
-    return (
-        <div
-            style={{
-                background: gradient,
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-                minHeight: "100vh",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "space-between",
-                alignItems: "center",
-                padding: isMobile ? "50px" : "100px", // Padding diferente
-                width: isMobile ? "110%" : "100%", // Width separado: 100% para mobile, 1200px para desktop
-                margin: isMobile ? "0" : "auto", // Centraliza no desktop
-                transition: "background 0.3s ease-in-out, width 0.3s ease-in-out, padding 0.3s ease-in-out",
-            }}
-        >
-            <header>
-                <h1 style={{ color: "#fff", textAlign: "center" }}>
-                    <img src="/efrases.png" className="edit-logo" alt="Logo do eFrases" width={"270px"} />
-                    <p style={{ color: "#7378EE", textAlign: "center", fontWeight: "300",}} className="slogan">
-                        O melhor, feito especialmente <b>pra você!</b>
-                    </p>
-                    <br /> <br />
-                </h1>
-            </header>
-
-            <main style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                {isMobile ? <TextGeneratorMobile /> : <TextGeneratorDesktop />}
-            </main>
-
-            {isMobile ? <Footermobile /> : <Footer />}
-=======
     return (
         <div style={{ position: "relative", minHeight: "100vh", overflow: "hidden" }}>
             {/* Camada de fundo */}
@@ -73,7 +36,7 @@ export default function Home() {
                     zIndex: -1,
                     background: `
                         radial-gradient(circle, rgba(0, 0, 128, 0.8) 0%, rgba(0, 0, 139, 0.7) 40%, rgba(25, 25, 112, 1) 100%),
-                        radial-gradient(circle at 5px, rgba(0, 0, 255, 0.3) 10px, transparent 1px)`, // Azul para as bolinhas
+                        radial-gradient(circle at 5px, rgba(0, 0, 255, 0.3) 10px, transparent 1px)`,
                     backgroundSize: "100%, 15px 27px", // Ajuste do tamanho do gradiente e espaçamento das bolinhas
                     backgroundPosition: "center, 0 center", // Bolinhas distribuídas uniformemente
                     backgroundRepeat: "no-repeat, repeat", // Bolinhas repetem
@@ -109,7 +72,7 @@ export default function Home() {
                 {/* Cabeçalho */}
                 <header>
                     <h1 style={{ color: "#fff", textAlign: "center" }}>
-                        <img src="/efrases.png" alt="Logo do eFrases" width="260px" />
+                        <img src="/efrases.png" alt="Logo do eFrases" width="260px" className="logo-edit" />
                         <p
                             style={{
                                 color: "#b2b2fd",
@@ -139,7 +102,6 @@ export default function Home() {
                 {/* Rodapé */}
                 {isMobile ? <Footermobile /> : <Footer />}
             </div>
->>>>>>> db8a886ada88c71795954e05d070a9d4ac4db14f
         </div>
     );
 }

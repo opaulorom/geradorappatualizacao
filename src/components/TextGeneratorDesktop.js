@@ -25,8 +25,11 @@ import Draggable from "react-draggable";
 
 
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> db8a886ada88c71795954e05d070a9d4ac4db14f
 // Componente para Controle de Gradiente
 const GradientControls = ({
   gradientStart,
@@ -225,8 +228,11 @@ const changePhrase = useCallback(() => {
   };
   
   
+<<<<<<< HEAD
 const initialNamePosition = { x: 0, y: 0 };
 const initialPhrasePosition = { x: 0, y: 0 };
+=======
+>>>>>>> db8a886ada88c71795954e05d070a9d4ac4db14f
   
   const handleSizeChange = (option) => {
     setSelectedSize(sizeOptions[option]);
@@ -336,6 +342,7 @@ const initialPhrasePosition = { x: 0, y: 0 };
     );
   };
 
+<<<<<<< HEAD
 
   const isOutOfBounds = (position, containerWidth, containerHeight) => {
     const margin = 50; // Margem para evitar que desapareçam parcialmente
@@ -346,6 +353,8 @@ const initialPhrasePosition = { x: 0, y: 0 };
   };
   
 
+=======
+>>>>>>> db8a886ada88c71795954e05d070a9d4ac4db14f
   // Estilo de fundo memoizado
   const backgroundStyle = useMemo(() => {
     return {
@@ -361,6 +370,7 @@ const initialPhrasePosition = { x: 0, y: 0 };
     return `linear-gradient(${gradientDirection}, ${gradientStart}, ${gradientEnd})`;
   }, [gradientDirection, gradientStart, gradientEnd]);
 
+<<<<<<< HEAD
 
   const resetNamePosition = () => {
     setNamePosition(initialNamePosition);
@@ -369,6 +379,8 @@ const initialPhrasePosition = { x: 0, y: 0 };
   const resetPhrasePosition = () => {
     setPhrasePosition(initialPhrasePosition);
   };
+=======
+>>>>>>> db8a886ada88c71795954e05d070a9d4ac4db14f
   // Fetch phrases from API
   const fetchFrases = useCallback(async () => {
     try {
@@ -414,10 +426,17 @@ const handleDownloadSelected = useCallback(async () => {
   setLoading(true);
 
   try {
+<<<<<<< HEAD
     // Obtenha as dimensões com base no formato selecionado
     const { width, height } = verticalSizes[selectedVerticalFormat];
 
     // Exportar como PNG com dimensões maiores
+=======
+    // Obter as dimensões com base no formato selecionado
+    const { width, height } = verticalSizes[selectedVerticalFormat];
+
+    // Exportar como PNG com as dimensões corretas
+>>>>>>> db8a886ada88c71795954e05d070a9d4ac4db14f
     const dataUrl = await toPng(node, {
       canvasWidth: width, // Largura final da imagem
       canvasHeight: height, // Altura final da imagem
@@ -438,6 +457,10 @@ const handleDownloadSelected = useCallback(async () => {
     setLoading(false);
   }
 }, [selectedVerticalFormat]);
+<<<<<<< HEAD
+=======
+
+>>>>>>> db8a886ada88c71795954e05d070a9d4ac4db14f
   
   
   useEffect(() => {
@@ -446,6 +469,7 @@ const handleDownloadSelected = useCallback(async () => {
     }
   }, [fetchFrases, name]);
   
+<<<<<<< HEAD
 
 <Box>
       <Text color="white" fontWeight="bold" mb={2}>
@@ -462,6 +486,8 @@ const handleDownloadSelected = useCallback(async () => {
       )}
     </Box>
 
+=======
+>>>>>>> db8a886ada88c71795954e05d070a9d4ac4db14f
   return (
     <Flex
       minH="100vh"
@@ -489,7 +515,11 @@ const handleDownloadSelected = useCallback(async () => {
           mb={1}
           borderRadius="md"
           maxLength={20}
+<<<<<<< HEAD
          
+=======
+          width={"265px"}
+>>>>>>> db8a886ada88c71795954e05d070a9d4ac4db14f
           fontSize="1.5rem"
           bg="white"
           aria-label="Nome"
@@ -538,7 +568,11 @@ const handleDownloadSelected = useCallback(async () => {
   value={nameColor}
   onChange={(e) => setNameColor(e.target.value)}
   aria-label="Cor do Nome"
+<<<<<<< HEAD
   
+=======
+  width="265px"
+>>>>>>> db8a886ada88c71795954e05d070a9d4ac4db14f
   height="40px"
   bg="white"
 />
@@ -553,7 +587,11 @@ const handleDownloadSelected = useCallback(async () => {
   value={phraseColor}
   onChange={(e) => setPhraseColor(e.target.value)}
   aria-label="Cor da Frase"
+<<<<<<< HEAD
  
+=======
+  width="265px"
+>>>>>>> db8a886ada88c71795954e05d070a9d4ac4db14f
   height="40px"
   bg="white"
 />
@@ -677,7 +715,10 @@ step={0.1}
 </Box>
 
 </div>
+<<<<<<< HEAD
 
+=======
+>>>>>>> db8a886ada88c71795954e05d070a9d4ac4db14f
 <br />
       <div className="pink tam-Fontes">
       <Box>
@@ -752,6 +793,7 @@ padding="20px"
 
 {/* Nome Draggable */}
 <Draggable
+<<<<<<< HEAD
   position={namePosition}
   onStop={(e, data) => setNamePosition({ x: data.x, y: data.y })}
 >
@@ -783,6 +825,54 @@ padding="20px"
   </Box>
 </Draggable>
 
+=======
+position={namePosition}
+onStop={(e, data) => setNamePosition({ x: data.x, y: data.y })}
+>
+<Box>
+  <Text
+    fontSize={`${nameSize}rem`}
+    fontWeight="bold"
+    color={nameColor} // Cor personalizada do nome
+    fontFamily={nameFont}
+    style={{
+      position: "relative",
+      zIndex: 1,
+      textRendering: "optimizeLegibility",
+      WebkitFontSmoothing: "antialiased",
+    }}
+  >
+    {name || "Digite seu nome!"}
+  </Text>
+</Box>
+</Draggable>
+
+{/* Frase Draggable */}
+<Draggable
+position={phrasePosition}
+onStop={(e, data) => setPhrasePosition({ x: data.x, y: data.y })}
+>
+<Box>
+  <Text
+    fontSize={`${phraseSize}rem`}
+    fontWeight="semibold"
+    fontFamily={phraseFont}
+    color={phraseColor} // Cor personalizada da frase
+    style={{
+      position: "relative",
+      zIndex: 1,
+      wordWrap: "break-word",
+      whiteSpace: "normal",
+      textAlign: "center",
+      textRendering: "optimizeLegibility",
+      WebkitFontSmoothing: "antialiased",
+    }}
+  >
+    {currentPhrase || "Digite uma frase!"}
+  </Text>
+</Box>
+</Draggable>
+>>>>>>> db8a886ada88c71795954e05d070a9d4ac4db14f
 </Box>
 
 
@@ -790,7 +880,11 @@ padding="20px"
       {/* Controles */}
       <div className="controlphone">
       <Flex mt={4} gap={2}>
+<<<<<<< HEAD
       <Button colorScheme="blue" onClick={changePhrase} className="controlphone2">
+=======
+      <Button colorScheme="blue" onClick={changePhrase}>
+>>>>>>> db8a886ada88c71795954e05d070a9d4ac4db14f
 Nova Frase
 </Button>
 
@@ -801,6 +895,7 @@ Nova Frase
 
 </div>
 
+<<<<<<< HEAD
 <div className="edit-bot">
   <Button colorScheme="blue" onClick={resetNamePosition} margin="10px">
     Voltar Nome
@@ -810,6 +905,9 @@ Nova Frase
     Voltar Frase
   </Button>
 </div>
+=======
+
+>>>>>>> db8a886ada88c71795954e05d070a9d4ac4db14f
  <div className="espaco-1">
  <Box mb={4}>
   <Text color="white" fontWeight="bold" mb={2}>
@@ -847,8 +945,11 @@ Nova Frase
         </Alert>
       )}
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> db8a886ada88c71795954e05d070a9d4ac4db14f
   </div>
 
     </Box>   

@@ -1,38 +1,19 @@
-/* Dispositivos menores que 350px (por exemplo, celulares muito pequenos) */
-@media (max-width: 349px) {
-  .text-container {
-    max-width: 100%;
-    /* estilos específicos para telas muito pequenas */
-  }
 
+.controlphone {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0; 
 
- 
+  
 }
 
-/* Entre 350px e 768px (tablets e celulares maiores) */
-@media (min-width: 350px) and (max-width: 768px) {
-  .text-container {
-    max-width: 100%;
-    /* estilos específicos para celulares e tablets */
-  }
-}
+.controlphone2{
 
-/* Entre 769px e 1024px (tablets maiores e desktops pequenos) */
-@media (min-width: 769px) and (max-width: 1024px) {
-  .text-container {
-    max-width: 100%;
-    /* estilos específicos para tablets e desktops pequenos */
-  }
+  display: flex;
+  margin-left: -320px;
 }
-
-/* Acima de 1024px (desktops e laptops) */
-@media (min-width: 1025px) {
-  .text-container {
-    max-width: 80%;
-    /* estilos para desktops maiores */
-  }
-}
-
 
 /* components/Card.module.css */
 
@@ -52,58 +33,63 @@
 
 .purple {
   background: linear-gradient(135deg, #6a00ff, #9b00ff);
-  width: 363px;
-  padding: 20px;
+  
+  padding: 30px;
   border-radius: 10px 10px 10px 10px;
 }
 
 .orange {
   background: linear-gradient(135deg, #ff8a00, #ffcd00);
-  width: 363px;
-  padding: 20px;
+ 
+  padding: 30px;
   border-radius: 10px 10px 10px 10px;
 }
 
 .pink {
   background: linear-gradient(135deg, #ff4b8a, #ff79c6);
-  width: 363px;
-  padding: 20px;
+ 
+  padding: 30px;
   border-radius: 10px 10px 10px 10px;
 }
 
 .blue {
   background: linear-gradient(135deg, #00aaff, #00d4ff);
-  width: 363px;
-  padding: 20px;
+ 
+  padding: 30px;
   border-radius: 10px 10px 10px 10px;
 }
 
 .yellow {
   background: linear-gradient(135deg, #ffc107, #ffec3d);
-  width: 363px;
-  padding: 20px;
+
+  padding: 30px;
   border-radius: 10px 10px 10px 10px;
 }
 
 .green {
   background: linear-gradient(135deg, #00c853, #69f0ae);
-  width: 363px;
-  padding: 20px;
+ 
+  padding: 30px;
   border-radius: 10px 10px 10px 10px;
 }
 
 .green-2 {
   background: linear-gradient(135deg, #08e2c5, #69f0ae);
-  width: 363px;
-  padding: 20px;
-  border-radius: 10px 10px 10px 10px;}
+
+  padding: 30px;
+  border-radius: 10px 10px 10px 10px;
+  width: 305px;
+
+}
+ 
 
 .control{
   display: flex;
   text-align: center;
   align-items: center;
-  width: 363px;
+  width: 310px;
   justify-content: space-around;
+
  
 }
 
@@ -133,11 +119,7 @@
   color: #ffffff;
 }
 
-.baix-img{
- 
-  border: 1px solid red;
-  
-}
+
 
 .p-tutor-Abaixa-Img2 {
 
@@ -147,15 +129,87 @@
 
 
 
-#text-image{
- 
-  margin-top: 15px;
-  display: flex;
-}
+
 
 
 .espaco-1{
   width: 100%;
   height: 500px;
+ align-items: center;
+}
+
+.edit-TiposBaixar{
  
+  margin-top: 40px;
+ background-color: #080808;
+ 
+  display: flex;
+}
+
+.edit-select:hover{
+  background-color: #00c853;
+}
+
+
+header img {
+  margin-left: 130px;
+  
+  
+}
+
+
+.ceodesktop{
+  border-radius: 1px red solid;
+ margin-bottom: -28px;
+}
+
+
+.conteudofooter{
+  margin-bottom: -100px;
+  background-color: #3535b9;
+  
+
+}
+
+
+.conteudofootermobile{
+  margin-bottom: -100px;
+  background-color: #1f1f20;
+  width: 413px;
+  
+
+}
+
+.ceodesktopmobile{
+
+ margin-bottom: -26px;
+ padding: 13px;
+}
+
+
+
+.edit-logo{
+ 
+  margin-left: 16px;
+}
+
+.slogan{
+  
+  font-size: 10px;
+  text-align: center;
+}
+
+
+
+.edit-bot{
+  padding: 15px ;
+  display: flex;
+  margin-top: -5px;
+
+  
+}
+
+button, .bot-1{
+  padding: 3px;
+  
 }

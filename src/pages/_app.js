@@ -1,14 +1,11 @@
-// pages/_app.js
-import { ChakraProvider } from '@chakra-ui/react';
+// src/pages/_app.js
+import { ChakraProvider } from "@chakra-ui/react";
+import theme from "../theme"; // ajuste o caminho conforme necessário
 import '../styles/style.css';
-
-
-import "@fontsource/roboto"; // Roboto
-import "@fontsource/open-sans"; // Open Sans
 
 function MyApp({ Component, pageProps }) {
   return (
-    <ChakraProvider>
+    <ChakraProvider theme={theme}>
       <Component {...pageProps} />
     </ChakraProvider>
   );

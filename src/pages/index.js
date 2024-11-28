@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
-import TextGeneratorDesktop from "../components/TextGeneratorDesktop";
-import TextGeneratorMobile from "../components/TextGeneratorMobile";
+import Tabs from "../components/Tabs";
 import Footer from "../components/Footer";
 import Footermobile from "../components/Footermobile";
 
@@ -10,7 +9,7 @@ export default function Home() {
 
     useEffect(() => {
         const handleResize = () => {
-            setIsMobile(window.innerWidth <= 768); // Define mobile se a largura for <= 768px
+            setIsMobile(window.innerWidth <= 768);
         };
 
         handleResize(); // Detecta o tamanho inicial
@@ -19,84 +18,66 @@ export default function Home() {
         return () => window.removeEventListener("resize", handleResize);
     }, []);
 
-    const gradient = isMobile
-        ? "linear-gradient(135deg, #181F6D, #404090)" // Mobile
-        : "linear-gradient(180deg, #181F6D, #2D2D73)"; // Desktop
-
     return (
         <div style={{ position: "relative", minHeight: "100vh", overflow: "hidden" }}>
             {/* Camada de fundo */}
-            <div
-                style={{
-                    position: "absolute",
-                    top: 0,
-                    left: 0,
-                    width: "100%",
-                    height: "100%",
-                    zIndex: -1,
-                    background: `
-                        radial-gradient(circle, rgba(0, 0, 128, 0.8) 0%, rgba(0, 0, 139, 0.7) 40%, rgba(25, 25, 112, 1) 100%),
-                        radial-gradient(circle at 5px, rgba(0, 0, 255, 0.3) 10px, transparent 1px)`,
-                    backgroundSize: "100%, 15px 27px", // Ajuste do tamanho do gradiente e espaçamento das bolinhas
-                    backgroundPosition: "center, 0 center", // Bolinhas distribuídas uniformemente
-                    backgroundRepeat: "no-repeat, repeat", // Bolinhas repetem
-                }}
-            ></div>
+            <div style={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                width: "100%",
+                height: "100%",
+                zIndex: -1,
+                background: `
+                    radial-gradient(circle, rgba(0, 0, 128, 0.8) 0%, rgba(0, 0, 139, 0.7) 40%, rgba(25, 25, 112, 1) 100%),
+                    radial-gradient(circle at 5px, rgba(0, 0, 255, 0.3) 10px, transparent 1px)`,
+                backgroundSize: "100%, 15px 27px",
+                backgroundPosition: "center, 0 center",
+                backgroundRepeat: "no-repeat, repeat",
+            }}></div>
 
             {/* Camada de blur */}
-            <div
-                style={{
-                    position: "absolute",
-                    top: 0,
-                    left: 0,
-                    width: "100%",
-                    height: "100%",
-                    zIndex: -1,
-                    backdropFilter: isMobile ? "blur(6px)" : "blur(8px)", // Desfoque ajustado
-                }}
-            ></div>
+            <div style={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                width: "100%",
+                height: "100%",
+                zIndex: -1,
+                backdropFilter: isMobile ? "blur(6px)" : "blur(8px)",
+            }}></div>
 
             {/* Conteúdo principal */}
-            <div
-                style={{
-                    position: "relative",
-                    zIndex: 1, // Garante que o conteúdo fique acima do fundo
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    padding: isMobile ? "50px" : "100px",
-                    minHeight: "100vh",
-                }}
-            >
+            <div style={{
+                position: "relative",
+                zIndex: 1,
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-between",
+                alignItems: "center",
+                padding: isMobile ? "50px" : "100px",
+                minHeight: "100vh",
+            }}>
+                       
                 {/* Cabeçalho */}
                 <header>
                     <h1 style={{ color: "#fff", textAlign: "center" }}>
-                        <img src="/efrases.png" alt="Logo do eFrases" width="260px" className="logo-edit" />
-                        <p
-                            style={{
-                                color: "#b2b2fd",
-                                textAlign: "center",
-                                fontWeight: "400",
-                                fontSize: "13px",
-                            }}
-                        >
-                            O melhor, feito especialmente <b>pra você!</b>
-                        </p>
-                        <br /> <br />
+                        <br/>
+                        <img src="/efrases.png" alt="Logo do eFrases" width="230px"  className="logo-edit"  />
+                        
+                       
                     </h1>
                 </header>
 
-                {/* Conteúdo principal */}
-                <main
-                    style={{
-                        flex: 1,
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                    }}
-                >
-                    {isMobile ? <TextGeneratorMobile /> : <TextGeneratorDesktop />}
+                {/* Componente de Tabs */}
+                <main style={{
+                    flex: 1,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    width: "100%",
+                }}>
+                    <Tabs />
                 </main>
 
                 {/* Rodapé */}

@@ -1,0 +1,70 @@
+/* Tutorial.module.css */
+.tutorialContainer {
+    margin: 20px;
+    padding: 20px;
+    background-color: #f4f4f4;
+    border-radius: 10px;
+    font-family: Arial, sans-serif;
+}
+
+.tutorialTitle {
+    color: #333;
+    text-align: center;
+    font-size: 24px;
+}
+
+.tutorialSteps {
+    text-align: left;
+}
+
+.step {
+    margin-bottom: 20px;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.stepTitle {
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff; /* Cor do texto */
+    padding: 5px;
+}
+
+.stepDescription {
+    color: #666;
+    font-size: 14px;
+}
+
+/* Cores específicas para cada tópico */
+.step1 {
+    background-color: #FFB6C1; /* Rosa claro */
+}
+
+.step2 {
+    background-color: #ADD8E6; /* Azul claro */
+}
+
+.step3 {
+    background-color: #98FB98; /* Verde claro */
+}
+
+.step4 {
+    background-color: #FFFACD; /* Amarelo claro */
+}
+
+.step5 {
+    background-color: #FFD700; /* Dourado */
+}
+
+.step6 {
+    background-color: #DDA0DD; /* Roxo claro */
+}
+
+.step7 {
+    background-color: #FF6347; /* Tomate */
+}
+
+.finalTips {
+    margin-top: 30px;
+    font-style: italic;
+}

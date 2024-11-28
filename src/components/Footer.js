@@ -23,8 +23,11 @@ const Footer = () => (
     color="white"
     borderTop="2px solid #00aaff"
     borderRadius="10px 10px 0 0"
+  
     width="1600px"
-    mt="auto"  // Empurra o rodapé para o fundo da página
+    
+    mt="auto"
+      // Empurra o rodapé para o fundo da página
     textAlign="center"
     marginBottom={-116}
   >
@@ -33,6 +36,7 @@ const Footer = () => (
       mx="auto"
       px={{ base: 4, md: 8, lg: 16 }}
       py={{ base: 6, md: 8 }}
+      
     >
       {/* Ícones das redes sociais */}
       <Box display="flex" justifyContent="center" mb={4}>
@@ -70,7 +74,7 @@ const Footer = () => (
       </Text>
 
       {/* Mensagem de apoio */}
-      <Text fontSize={{ base: "sm", md: "md" }} mb={4} lineHeight="1.6">
+      <Text fontSize={{ base: "sm", md: "md" }} mb={4} lineHeight="1.6" padding={10}>
         O eFrases é um projeto feito com carinho para oferecer a você as melhores frases
         inspiradoras, motivacionais e criativas. Se você gosta do nosso conteúdo e deseja apoiar
         o nosso trabalho, considere fazer uma contribuição via Pix.

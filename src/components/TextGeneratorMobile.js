@@ -22,7 +22,9 @@ import { useDropzone } from "react-dropzone";
 import { useMediaQuery } from "@chakra-ui/react";
 import Image from 'next/image';
 import Draggable from "react-draggable";
-
+import { createFFmpeg, fetchFile } from '@ffmpeg/ffmpeg';
+import dynamic from 'next/dynamic';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -167,13 +169,10 @@ const changePhrase = useCallback(() => {
 
 
 
-
-  const shareOnTwitter = () => {
-    const tweetText = encodeURIComponent("Confira minha mensagem inspiradora!");
-    const tweetUrl = `https://twitter.com/intent/tweet?text=${tweetText}`;
-    window.open(tweetUrl, "_blank");
-  };
-  
+const createFFmpeg = dynamic(
+  () => import('@ffmpeg/ffmpeg').then((mod) => mod.createFFmpeg),
+  { ssr: false }
+);
   
   const currentPhrase = useMemo(() => {
     if (allPhrases.length > 0) {
@@ -233,6 +232,13 @@ const initialPhrasePosition = { x: 0, y: 0 };
   };
   
 
+  const captureFrame = async (elementId) => {
+    const node = document.getElementById(elementId);
+    if (!node) return null;
+  
+    return await toPng(node, { quality: 1, width: 1080, height: 1920 });
+  };
+  
   const TextGenerator = () => {
     // Hook deve estar dentro do componente
     const [isMobile] = useMediaQuery("(max-width: 768px)");
@@ -268,6 +274,9 @@ const initialPhrasePosition = { x: 0, y: 0 };
       setTheme(selectedTheme);
     }
   };
+
+
+
   
 <Box mb={4}>
   <Text color="white" fontWeight="bold" mb={2}>
@@ -311,6 +320,12 @@ const initialPhrasePosition = { x: 0, y: 0 };
       },
     });
     
+    const captureFrame = async (elementId) => {
+      const node = document.getElementById(elementId);
+      if (!node) return null;
+    
+      return await toPng(node, { quality: 1, width: 1080, height: 1920 });
+    };
 
     return (
       <Box
@@ -334,6 +349,17 @@ const initialPhrasePosition = { x: 0, y: 0 };
         )}
       </Box>
     );
+  };
+
+  const processVideo = async () => {
+    try {
+      if (!ffmpeg.isLoaded()) {
+        await ffmpeg.load();
+      }
+      // Código para manipular vídeo...
+    } catch (error) {
+      console.error('Erro ao processar vídeo:', error);
+    }
   };
 
 
@@ -400,8 +426,10 @@ const validateName = useCallback(() => {
 const verticalSizes = {
   instagramStories: { width: 1080, height: 1920 },
   facebookStories: { width: 1080, height: 1920 },
- 
+  
 };
+
+
 
 const handleDownloadSelected = useCallback(async () => {
   const node = document.getElementById("text-image"); // O elemento no DOM
@@ -438,7 +466,6 @@ const handleDownloadSelected = useCallback(async () => {
     setLoading(false);
   }
 }, [selectedVerticalFormat]);
-  
   
   useEffect(() => {
     if (validateName()) {
@@ -789,13 +816,21 @@ padding="20px"
 
       {/* Controles */}
       <div className="controlphone">
-      <Flex mt={4} gap={2}>
-      <Button colorScheme="blue" onClick={changePhrase} className="controlphone2">
+      <Flex mt={6} gap={2}>
+      <Button colorScheme="blue" onClick={changePhrase} >
 Nova Frase
 </Button>
 
       </Flex>
       </div>
+      <div className="edit-bot">
+  <Button colorScheme="blue" onClick={resetNamePosition} margin={2}>
+    Voltar Nome
+  </Button>
+  <Button colorScheme="teal" onClick={resetPhrasePosition} margin={2}>
+    Voltar Frase
+  </Button>
+</div>
  
 <div className="edit-TiposBaixar">
 
@@ -840,14 +875,6 @@ Nova Frase
       )}
 
 
-<div className="edit-bot">
-  <Button colorScheme="blue" onClick={resetNamePosition} margin={2}>
-    Voltar Nome
-  </Button>
-  <Button colorScheme="teal" onClick={resetPhrasePosition} margin={2}>
-    Voltar Frase
-  </Button>
-</div>
   </div>
 
     </Box>   

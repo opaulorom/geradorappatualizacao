@@ -89,7 +89,7 @@ const Tabs = () => {
                         border: '2px solid transparent',  // Borda transparente
                         borderRadius: '5px',  // Borda arredondada
                         fontWeight: '600',  // Fonte mais grossa
-                        letterSpacing: '5px',  // Espaçamento entre as letras
+                        letterSpacing: '2px',  // Espaçamento entre as letras
                         transition: 'all 0.3s ease'  // Transição suave
                     }}
                     onMouseEnter={(e) => e.target.style.color = '#ADD8E6'} // Hover: Cor azul claro

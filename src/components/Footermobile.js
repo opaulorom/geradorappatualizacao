@@ -22,7 +22,7 @@ const Footer = () => (
     bg="black"
     color="white"
     borderTop="2px solid #00aaff"
-    borderRadius="10px 10px 0 0"
+    
     width="489px" // Ajuste para largura flexível
     position="relative" // Garante que o rodapé não sobreponha conteúdo
     textAlign="center"
@@ -34,7 +34,8 @@ const Footer = () => (
       mx="auto"
       px={{ base: 4, md: 6, lg: 8 }} // Diminuir o padding horizontal
     >
-      {/* Ícones das redes sociais */}
+     <p>Siga nossa página nas redes sociais abaixo</p>
+     <p></p>
       <Box display="flex" justifyContent="center" mb={2}> {/* Diminuir a margem inferior */}
         <a
           href="https://www.facebook.com/efrasesapp/"
@@ -66,18 +67,15 @@ const Footer = () => (
 
       {/* Título */}
       <Text fontWeight="bold" fontSize={{ base: "lg", md: "xl" }} mb={2}> {/* Diminuir a margem inferior */}
-        Contribua com o eFrases!
+      
       </Text>
-
-      {/* Mensagem de apoio */}
-      <Text fontSize={{ base: "sm", md: "md" }} mb={2} lineHeight="1.2">
-        Feito com carinho para oferecer a você as melhores frases
+      
+      <Text fontSize={-2} lineHeight="1.2" padding={10}>
+      <h1> O eFrases!</h1>
+     foi Feito com carinho para oferecer a você as melhores frases
         inspiradoras, motivacionais e criativas. Se você gosta do nosso conteúdo e deseja apoiar
         o nosso trabalho, considere fazer uma contribuição via Pix.
-      </Text>
-
-      {/* Mensagem de agradecimento */}
-      <Text fontSize={{ base: "xs", md: "sm" }} mb={4} lineHeight="1.2">
+        <br/>
         Toda contribuição, independentemente do valor, nos ajuda a continuar desenvolvendo
         novas funcionalidades, criar mais conteúdos e manter o site sempre atualizado e
         gratuito para todos. <br />
@@ -100,7 +98,7 @@ const Footer = () => (
 
       {/* Rodapé final */}
       <Text fontSize={{ base: "xs", md: "sm" }} mt={4} lineHeight="1.4">
-        © 2024 Copyright efrases.com.br - Todos os direitos reservados.
+          © Copyright 2024 -efrases.com.br - Todos os direitos reservados.
       </Text>
     </Box>
   </Box>

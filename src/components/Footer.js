@@ -22,24 +22,21 @@ const Footer = () => (
     bg="black"
     color="white"
     borderTop="2px solid #00aaff"
-    borderRadius="10px 10px 0 0"
-  
-    width="1600px"
     
-    mt="auto"
-      // Empurra o rodapé para o fundo da página
+    width="1590px" // Ajuste para largura flexível
+    position="relative" // Garante que o rodapé não sobreponha conteúdo
     textAlign="center"
-    marginBottom={-116}
+    py={10}
+    marginBottom={-130} // Diminuir o padding vertical
   >
     <Box
-      maxWidth="700px"
+      maxWidth="1200px" // Limite máximo da largura do conteúdo
       mx="auto"
-      px={{ base: 4, md: 8, lg: 16 }}
-      py={{ base: 6, md: 8 }}
-      
+      px={{ base: 4, md: 6, lg: 8 }} // Diminuir o padding horizontal
     >
-      {/* Ícones das redes sociais */}
-      <Box display="flex" justifyContent="center" mb={4}>
+     <p>Siga nossa página nas redes sociais abaixo</p>
+     <p></p>
+      <Box display="flex" justifyContent="center" mb={2}> {/* Diminuir a margem inferior */}
         <a
           href="https://www.facebook.com/efrasesapp/"
           target="_blank"
@@ -50,7 +47,7 @@ const Footer = () => (
             alt="Ícone do Facebook"
             width={40}
             height={40}
-            style={{ margin: "0 10px" }}
+            style={{ margin: "0 8px" }} // Menor espaço entre os ícones
           />
         </a>
         <a
@@ -63,25 +60,22 @@ const Footer = () => (
             alt="Ícone do Instagram"
             width={40}
             height={40}
-            style={{ margin: "0 10px" }}
+            style={{ margin: "0 8px" }} // Menor espaço entre os ícones
           />
         </a>
       </Box>
 
       {/* Título */}
-      <Text fontWeight="bold" fontSize={{ base: "lg", md: "xl" }} mb={4}>
-        Contribua com o eFrases!
+      <Text fontWeight="bold" fontSize={{ base: "lg", md: "xl" }} mb={2}> {/* Diminuir a margem inferior */}
+      
       </Text>
-
-      {/* Mensagem de apoio */}
-      <Text fontSize={{ base: "sm", md: "md" }} mb={4} lineHeight="1.6" padding={10}>
-        O eFrases é um projeto feito com carinho para oferecer a você as melhores frases
+      
+      <Text fontSize={-2} lineHeight="1.2" padding={10}>
+      <h1> O eFrases!</h1>
+     foi Feito com carinho para oferecer a você as melhores frases
         inspiradoras, motivacionais e criativas. Se você gosta do nosso conteúdo e deseja apoiar
         o nosso trabalho, considere fazer uma contribuição via Pix.
-      </Text>
-
-      {/* Mensagem de agradecimento */}
-      <Text fontSize={{ base: "xs", md: "sm" }} mb={6} lineHeight="1.6">
+        <br/>
         Toda contribuição, independentemente do valor, nos ajuda a continuar desenvolvendo
         novas funcionalidades, criar mais conteúdos e manter o site sempre atualizado e
         gratuito para todos. <br />
@@ -89,7 +83,7 @@ const Footer = () => (
       </Text>
 
       {/* QR Code */}
-      <Text fontSize={{ base: "sm", md: "md" }} mb={4}>
+      <Text fontSize={{ base: "sm", md: "md" }} mb={2}>
         📲 QR Code Pix abaixo:
       </Text>
       <Box display="flex" justifyContent="center" mx="auto" mb={4}>
@@ -103,8 +97,8 @@ const Footer = () => (
       </Box>
 
       {/* Rodapé final */}
-      <Text fontSize={{ base: "xs", md: "sm" }} mt={6} lineHeight="1.4">
-        © 2024 Copyright efrases.com.br - Todos os direitos reservados.
+      <Text fontSize={{ base: "xs", md: "sm" }} mt={4} lineHeight="1.4">
+          © Copyright 2024 -efrases.com.br - Todos os direitos reservados.
       </Text>
     </Box>
   </Box>

@@ -400,7 +400,7 @@ const validateName = useCallback(() => {
 const verticalSizes = {
   instagramStories: { width: 1080, height: 1920 },
   facebookStories: { width: 1080, height: 1920 },
-  tiktok: { width: 1080, height: 1920 },
+  
 };
 
 const handleDownloadSelected = useCallback(async () => {

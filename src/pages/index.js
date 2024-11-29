@@ -3,9 +3,8 @@ import Tabs from "../components/Tabs";
 import Footer from "../components/Footer";
 import Footermobile from "../components/Footermobile";
 
-
 export default function Home() {
-    const [isMobile, setIsMobile] = useState(false);
+    const [isMobile, setIsMobile] = useState(null);
 
     useEffect(() => {
         const handleResize = () => {
@@ -17,6 +16,11 @@ export default function Home() {
 
         return () => window.removeEventListener("resize", handleResize);
     }, []);
+
+    if (isMobile === null) {
+        // Renderiza algo temporário enquanto `isMobile` é calculado
+        return null;
+    }
 
     return (
         <div style={{ position: "relative", minHeight: "100vh", overflow: "hidden" }}>
@@ -58,18 +62,12 @@ export default function Home() {
                 padding: isMobile ? "50px" : "100px",
                 minHeight: "100vh",
             }}>
-                       
-                {/* Cabeçalho */}
                 <header>
                     <h1 style={{ color: "#fff", textAlign: "center" }}>
-                        <br/>
-                        <img src="/efrases.png" alt="Logo do eFrases" width="230px"  className="logo-edit"  />
-                        
-                       
+                        <img src="/efrases.png" alt="Logo do eFrases" width="230px" className="logo-edit" />
                     </h1>
                 </header>
 
-                {/* Componente de Tabs */}
                 <main style={{
                     flex: 1,
                     display: "flex",
@@ -80,7 +78,6 @@ export default function Home() {
                     <Tabs />
                 </main>
 
-                {/* Rodapé */}
                 {isMobile ? <Footermobile /> : <Footer />}
             </div>
         </div>

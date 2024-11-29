@@ -475,6 +475,9 @@ const handleDownloadSelected = useCallback(async () => {
   
 
 <Box>
+
+
+
       <Text color="white" fontWeight="bold" mb={2}>
         Frases Personalizadas
       </Text>
@@ -506,11 +509,11 @@ const handleDownloadSelected = useCallback(async () => {
          
         <div className="purple">
         <Text   color="white" fontWeight="700"  fontFamily={" Nunito, sans-serif;"} mb={2} >
-        Nome
+        Digite seu nome
         </Text>
        
         <Input
-          placeholder={`Digite seu nome ${phraseCategory === "names" ? "e veja" : ""}`}
+          placeholder={`aqui escreva o nome${phraseCategory === "names" ? "e veja" : ""}`}
           value={name}
           onChange={(e) => setName(e.target.value)}
           mb={1}
@@ -523,7 +526,7 @@ const handleDownloadSelected = useCallback(async () => {
           onBlur={validateName} // Valida ao sair do campo
           
         />
-         <p className="p-tutor">Escreva seu nome aí em cima e veja uma frase inspiradora.</p>
+         <h2 className="p-tutor">Escreva seu nome aí em cima<a  href="#text-image" className="irbaixo">Visualizar</a> <img src=""/>  </h2>
 
          {hasInteracted && showNameAlert && (
 <Alert status="error" borderRadius="md" mb={2}>
@@ -532,31 +535,14 @@ const handleDownloadSelected = useCallback(async () => {
 </Alert>
 )}
         
-        <Box mb={4}>
 
-        <Box mb={4}>
-<Text color="white" fontWeight="bold" mb={2}>
-  Adicionar Frase Personalizada
-</Text>
-<Input
-  placeholder="Digite sua frase personalizada"
-  value={userPhrase}
-  onChange={(e) => setUserPhrase(e.target.value)}
-  mb={2}
-  bg="white"
-/>
-<Button colorScheme="blue" onClick={addCustomPhrase}>
-  Adicionar Frase
-</Button>
-</Box>
-
-</Box>
 
 </div>
 <br />
         <div className="green">
 
 <Box mb={4}>
+<h2 className="p-tutor">Escolha sua cor <a  href="#text-image" className="irbaixo2">Visualizar</a> <img src=""/>  </h2>
 <Text color="white" fontWeight="700" fontFamily="Nunito, sans-serif" mb={2}>
   Cor do Nome
 </Text>
@@ -570,7 +556,7 @@ const handleDownloadSelected = useCallback(async () => {
   bg="white"
 />
 </Box>
-
+<br/>
 <Box mb={4}>
 <Text color="white" fontWeight="700" fontFamily="Nunito, sans-serif" mb={2}>
   Cor da Frase
@@ -593,6 +579,8 @@ const handleDownloadSelected = useCallback(async () => {
 
 <div className="orange ">
 <Box mb={4} width="100%">
+<h2 className="p-tutor">Escolha o Tamanho<a  href="#text-image" className="irbaixo2">Visualizar</a> <img src=""/>  </h2>
+
 <Text color="white" fontWeight="700" fontFamily="Nunito, sans-serif" mb={2}>
   Tamanho do Nome
 </Text>
@@ -642,27 +630,18 @@ step={0.1}
   color="black"
   fontFamily={nameFont}
 >
-   <option value="Roboto">Roboto</option>
-<option value="Arial">Arial</option>
-<option value="Times New Roman">Times New Roman</option>
-<option value="Open Sans">Open Sans</option>
-<option value="Lato">Lato</option>
-<option value="Montserrat">Montserrat</option>
-<option value="Poppins">Poppins</option>
-<option value="Raleway">Raleway</option>
-<option value="Nunito">Nunito</option>
-<option value="Source Sans Pro">Source Sans Pro</option>
-<option value="Merriweather">Merriweather</option>
-<option value="Georgia">Georgia</option>
-<option value="Verdana">Verdana</option>
-<option value="Courier New">Courier New</option>
-<option value="Tahoma">Tahoma</option>
-<option value="Comic Sans MS">Comic Sans MS</option>
-<option value="Oswald">Oswald</option>
-<option value="Dancing Script">Dancing Script</option>
-<option value="Lora">Lora</option>
-<option value="Quicksand">Quicksand</option>
-<option value="Playfair Display">Playfair Display</option>
+<option value="Roboto, sans-serif">Roboto</option>
+  <option value="Open Sans, sans-serif">Open Sans</option>
+  <option value="Lato, sans-serif">Lato</option>
+  <option value="Quicksand, sans-serif">Quicksand</option>
+  <option value="Montserrat, sans-serif">Montserrat</option>
+  <option value="Dancing Script, cursive">Dancing Script</option>
+  <option value="Pacifico, cursive">Pacifico</option>
+  <option value="Allura, cursive">Allura</option>
+  <option value="Satisfy, cursive">Satisfy</option>
+  <option value="Sacramento, cursive">Sacramento</option>
+
+
 </Select>
 </Box>
 
@@ -707,6 +686,30 @@ step={0.1}
 
 <br />
       <div className="pink tam-Fontes">
+      <Box mb={4}>
+        <h2 className="p-tutor"><a  href="#text-image" className="irbaixo2">Visualizar</a> <img src=""/>  </h2>
+        <Box mb={4}>
+          
+<Text color="white" fontWeight="bold" mb={2}>
+Adicione sua frase personalizada (Opcional)
+</Text>
+<Input
+  placeholder="Escreve Aqui"
+  value={userPhrase}
+  onChange={(e) => setUserPhrase(e.target.value)}
+  mb={2}
+  bg="white"
+/>
+<Button colorScheme="blue" onClick={addCustomPhrase}>
+  Adicionar Frase
+</Button>
+
+</Box>
+<br /><br />
+</Box>
+
+
+
       <Box>
         <Text color="white" fontWeight="700"  fontFamily={" Nunito, sans-serif;"} mb={2}>
           Tipos de Frases
@@ -735,7 +738,7 @@ step={0.1}
 <option value="seasonal">Frases Sazonais</option>
 
         </Select>
-
+    
       </Box>
       <p className="p-tutorTiposdeFrase">Selecione o seu tipo de frase e gere sua inspiração. Abaixo, personalize mudando a cor do gradiente 1 e gradiente 2 do seu jeito.</p>
       
@@ -816,21 +819,13 @@ padding="20px"
 
       {/* Controles */}
       <div className="controlphone">
-      <Flex mt={6} gap={2}>
+      <Flex mt={4} gap={2}>
       <Button colorScheme="blue" onClick={changePhrase} >
 Nova Frase
 </Button>
 
       </Flex>
       </div>
-      <div className="edit-bot">
-  <Button colorScheme="blue" onClick={resetNamePosition} margin={2}>
-    Voltar Nome
-  </Button>
-  <Button colorScheme="teal" onClick={resetPhrasePosition} margin={2}>
-    Voltar Frase
-  </Button>
-</div>
  
 <div className="edit-TiposBaixar">
 
@@ -874,7 +869,14 @@ Nova Frase
         </Alert>
       )}
 
-
+<div className="edit-bot">
+  <Button colorScheme="blue" onClick={resetNamePosition} margin={2}>
+    Voltar Nome
+  </Button>
+  <Button colorScheme="teal" onClick={resetPhrasePosition} margin={2}>
+    Voltar Frase
+  </Button>
+</div>
   </div>
 
     </Box>   

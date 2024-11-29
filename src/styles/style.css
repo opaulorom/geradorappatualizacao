@@ -105,6 +105,8 @@ tuto-edit{
 .p-tutor{
   color: #ffffff;
   font-size: 12px;
+  padding: 6px;
+  margin-left: -5px;
 }
 
 .p-tutorColor{
@@ -201,7 +203,8 @@ header img {
 
 
 .logo-edit{
- 
+
+ margin-top: -65px;
   margin-left: 16px;
 }
 
@@ -228,4 +231,22 @@ button, .bot-1{
 
 .etexto{
   background-color: #00d4ff;
+}
+
+
+
+.irbaixo{
+
+  background-color: #df2605;
+  margin-left: 3px;
+  padding: 3px;
+  border-radius: 0px 10px 0px 10px;
+}
+
+
+.irbaixo2{
+  background-color: #df2605;
+  margin-left: 3px;
+  padding: 3px;
+  border-radius: 0px 10px 0px 10px;
 }

@@ -41,7 +41,7 @@ tuto-edit{
 
 .purple {
   background: linear-gradient(135deg, #6a00ff, #9b00ff);
-  
+ 
   padding: 30px;
   border-radius: 10px 10px 10px 10px;
 }
@@ -69,7 +69,7 @@ tuto-edit{
 
 .yellow {
   background: linear-gradient(135deg, #ffc107, #ffec3d);
-
+  
   padding: 30px;
   border-radius: 10px 10px 10px 10px;
 }
@@ -83,7 +83,7 @@ tuto-edit{
 
 .green-2 {
   background: linear-gradient(135deg, #08e2c5, #69f0ae);
-
+ 
   padding: 30px;
   border-radius: 10px 10px 10px 10px;
   width: 305px;

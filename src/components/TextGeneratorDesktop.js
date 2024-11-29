@@ -48,6 +48,7 @@ const GradientControls = ({
       Fundo e Gradiente
     </Text>
     <Slider
+    
       aria-label="Transparência do gradiente"
       defaultValue={gradientOpacity * 100}
       onChange={(val) => setGradientOpacity(val / 100)}
@@ -55,7 +56,7 @@ const GradientControls = ({
       <SliderTrack>
         <SliderFilledTrack />
       </SliderTrack>
-      <SliderThumb />
+      <SliderThumb aria-label="Controle de tamanho do nome"  />
     </Slider>
     <Input
       type="color"
@@ -336,12 +337,15 @@ const initialPhrasePosition = { x: 0, y: 0 };
         bg={"black"}
         color="white"
         cursor="pointer"
+       
+        alt="adicione img"
         textAlign="center"
+       
         mb={4}
         className="baix-img"
         
       >
-        <input {...getInputProps()} />
+        <input {...getInputProps()} aria-label="Upload de imagem"  />
         {isDragActive ? (
           <Text>Solte a imagem aqui...</Text>
         ) : (
@@ -522,7 +526,7 @@ const handleDownloadSelected = useCallback(async () => {
          
           fontSize="1.5rem"
           bg="white"
-          aria-label="Nome"
+          aria-label="Campo para digitar o nome"
           onBlur={validateName} // Valida ao sair do campo
           
         />
@@ -595,7 +599,7 @@ const handleDownloadSelected = useCallback(async () => {
   <SliderTrack>
     <SliderFilledTrack />
   </SliderTrack>
-  <SliderThumb />
+  <SliderThumb aria-label="Tanho do nome"  />
 </Slider>
 </Box>
 
@@ -616,7 +620,7 @@ step={0.1}
 <SliderTrack>
   <SliderFilledTrack />
 </SliderTrack>
-<SliderThumb />
+<SliderThumb aria-label="Controle de tamanho da Frase"  />
 </Slider>
 
 <Box mb={4}>
@@ -699,8 +703,9 @@ Adicione sua frase personalizada (Opcional)
   onChange={(e) => setUserPhrase(e.target.value)}
   mb={2}
   bg="white"
+  alt="escreva frase personalizada"
 />
-<Button colorScheme="blue" onClick={addCustomPhrase}>
+<Button colorScheme="blue" onClick={addCustomPhrase}  aria-label="Gerar uma nova frase"  aria-live="polite">
   Adicionar Frase
 </Button>
 
@@ -738,7 +743,7 @@ Adicione sua frase personalizada (Opcional)
 <option value="seasonal">Frases Sazonais</option>
 
         </Select>
-        <br/> <br/>
+    
       </Box>
       <p className="p-tutorTiposdeFrase">Selecione o seu tipo de frase e gere sua inspiração. Abaixo, personalize mudando a cor do gradiente 1 e gradiente 2 do seu jeito.</p>
       
@@ -791,6 +796,8 @@ padding="20px"
       fontWeight="bold"
       color={nameColor}
       fontFamily={nameFont}
+        role="button"
+  aria-label="Mover nome"
     >
       {name || "Digite seu nome!"}
     </Text>
@@ -820,7 +827,7 @@ padding="20px"
       {/* Controles */}
       <div className="controlphone">
       <Flex mt={4} gap={2}>
-      <Button colorScheme="blue" onClick={changePhrase} className="controlphone2">
+      <Button colorScheme="blue" onClick={changePhrase} aria-label="Gerar uma nova frase"  aria-live="polite" >
 Nova Frase
 </Button>
 
@@ -859,21 +866,23 @@ Nova Frase
   isLoading={loading} // Exibe estado de carregamento
   loadingText="Baixando..." 
   className="green-2"
+  aria-label="baixe sua imagem vertical"
+   aria-live="polite"
 >
   Baixar Imagem Vertical
-</Button>
+</Button > 
 {downloadFeedback && (
-        <Alert status="info" borderRadius="md" mt={2} >
+        <Alert status="info" borderRadius="md" mt={2}  aria-live="polite">
           <AlertIcon />
           {downloadFeedback}
         </Alert>
       )}
 
 <div className="edit-bot">
-  <Button colorScheme="blue" onClick={resetNamePosition} margin={2}>
+  <Button colorScheme="blue" onClick={resetNamePosition} margin={2} aria-label="volta com a frase"  aria-live="polite">
     Voltar Nome
   </Button>
-  <Button colorScheme="teal" onClick={resetPhrasePosition} margin={2}>
+  <Button colorScheme="teal" onClick={resetPhrasePosition} margin={2} aria-label="volta com a frase"  aria-live="polite">
     Voltar Frase
   </Button>
 </div>

@@ -218,6 +218,14 @@ const createFFmpeg = dynamic(
       }
     }
   };
+
+  const handleClick = () => {
+    window.gtag("event", "button_click", {
+      event_category: "Button",
+      event_label: "Generate Text",
+    });
+  };
+  
   
   const handleTouchEnd = () => {
     setInitialDistance(null); // Limpa a distância inicial ao soltar os dedos

@@ -190,6 +190,14 @@ const createFFmpeg = dynamic(
   >
     {currentPhrase}
   </Text>
+
+const handleClick = () => {
+  window.gtag("event", "button_click", {
+    event_category: "Button",
+    event_label: "Generate Text",
+  });
+};
+
   
   const handleTouchStart = (e, target) => {
     if (e.touches.length === 2) {
@@ -877,6 +885,8 @@ Nova Frase
           {downloadFeedback}
         </Alert>
       )}
+
+      
 
 <div className="edit-bot">
   <Button colorScheme="blue" onClick={resetNamePosition} margin={2} aria-label="volta com a frase"  aria-live="polite">

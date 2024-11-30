@@ -734,9 +734,10 @@ Adicione sua frase personalizada (Opcional)
           color="black"
           mb={2}
         >
-          <option value="general">Frases Gerais</option>
+                    <option value="general">Frases Gerais</option>
 <option value="names">Frases com Nome</option>
 <option value="parameuamor">Para meu amor</option>
+<option value="Mae">Para Mãe</option>
 <option value="celebrations">Frases de Celebrações</option>
 <option value="inspirational">Frases Inspiradoras</option>
 <option value="love">Frases de Amor</option>

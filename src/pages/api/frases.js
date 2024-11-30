@@ -15,16 +15,16 @@ const frases = {
     
   ],
   names: [
-    "Para João, que a vida te sorria sempre!",
-    "Ana! O melhor está por vir.",
-    "Para Lucas, nunca pare de sonhar!",
-    "Clara! Que sua jornada seja incrível.",
-    "Para Maria, que a felicidade te acompanhe sempre!",
-    "Pedro! O futuro é todo seu.",
-    "Para Sofia, que seus dias sejam repletos de alegria!",
-    "Para Paulo, que suas conquistas sejam muitas.",
-    "Para Fernanda, acredite sempre no melhor.",
-    "Que a felicidade te acompanhe sempre, Gustavo.",
+    "que a vida te sorria sempre!",
+    "O melhor está por vir.",
+    "nunca pare de sonhar!",
+    "Que sua jornada seja incrível.",
+    "que a felicidade te acompanhe sempre!",
+    "O futuro é todo seu.",
+    "que seus dias sejam repletos de alegria!",
+    "que suas conquistas sejam muitas.",
+    "acredite sempre no melhor.",
+    "Que a felicidade te acompanhe sempre.",
   
   ],
 
@@ -47,6 +47,45 @@ const frases = {
    
   ],
 
+  Mae: [
+    "te amo.",
+    "Você é tudo pra mim!",
+    "Pedi a Deus que me fizesse feliz, e Ele me tornou mãe.",
+    "Uma pela outra",
+    "Ser mãe é amar sem fronteiras",
+    "Me orgulho de ser mãe, mas me orgulho mais ainda de ter você como filha",
+    "O filho mais rico é aquele que tem uma mãe que ora por ele",
+    "Ela é forte. Ela é guerreira. Ela é minha mãe.",
+    "Filha, seremos sempre nós, por toda a vida. Nunca duvide disso!",
+    "Mãe, um título maior que rainha",
+    "Eu vi minha mãe lutando, mas nunca vi ela desistindo. Quanto orgulho dessa mulher.",
+    "Você é a melhor mãe do mundo",
+    "Filha, amor maior do mundo!",
+    "Minha filha, eu não te dei o presente da vida, a vida me deu você como presente.",
+    "É incrível como algo tão pequenino pode te fazer sentir algo tão grande.",
+    " Filhas são como flores que embelezam o nosso mundo com bênçãos.",
+    "Não importa o que você diga, não importa o que você faça, não importa onde você esteja. Eu sempre vou te amar minha filha.",
+    "Minha filha, você é a razão de eu ser tão forte quanto sou hoje.",
+    "Minha filha, a sua alegria é a minha alegria, seu coração faz o meu bater cada dia mais forte.",
+    "Uma filha é um ser que chega ao mundo para nos fazer entender como é amar alguém mais intensamente do que a nós mesmos.",
+    "Minha filha, eu só acredito em amor à primeira vista, pois desde o primeiro momento que te vi, já sabia que te amaria pelo resto da minha vida.",
+    "Uma mãe é sempre a melhor amiga de sua filha.",
+    "O tesouro de uma mãe é sempre a sua filha querida.",
+    "Uma filha é uma menina que cresce para se tornar a sua melhor e mais estimada amiga.",
+     "A felicidade verdadeira é o tempo compartilhado entre uma mãe e uma filha.",
+     "Mãe: um título de nobreza acima de rainha para quem tem uma princesa em seus braços.",
+     "Ter uma filha é a forma como Deus nos diz: você terá uma amiga verdadeira pelo resto de sua vida.",
+     "O amor entre mãe e filha é um amor eterno e incondicional.",
+     "Sou a mãe mais feliz deste mundo por ter uma filha como você ao meu lado.",
+     "Não importa a idade que você tenha, às vezes o que uma filha mais precisa é do colo de sua mãe.",
+     "A vida não lhe dá um manual, ela lhe entrega uma mãe.",
+     " Mães e filhas se tornam ainda mais próximas quando as filhas se tornam mães.",
+     "Mães e filhas nunca se distanciam, talvez isso aconteça pela distância, mas nunca pelo coração.",
+     "Um dia, quando as páginas da minha vida terminarem, a minha filha será o meu capítulo mais bonito.",
+     "O amor entre uma mãe e uma filha está sempre gravado em seus respectivos corações.",
+     "De todas as coisas que as minhas mãos já tocaram, você é de longe a mais especial.",
+     "A minha maior felicidade é o tempo que compartilho com você minha filha.",
+  ],
 
   
   inspirational: [
@@ -62,6 +101,7 @@ const frases = {
     "Grandes sonhos começam com pequenos passos.",
     
   ],
+
   love: [
     "O amor é a maior força do universo.",
     "Amar é dar asas ao outro sem nunca prendê-lo.",
@@ -73,9 +113,22 @@ const frases = {
     "Quando há amor, tudo é possível.",
     "O amor transforma o comum em extraordinário.",
     "Um coração cheio de amor é invencível",
-    
-   
+    "Você completa a minha vida, enche o meu coração de alegria e será para sempre o meu eterno amor.",
+    "Meu amor, você está em meus pensamentos do momento que acordo até a hora que eu vou dormir.",
+    "Estar ao seu lado é a minha maior felicidade. Eu te amo incondicionalmente, meu amor.",
+    "Que sorte eu tive de ter cruzado seu caminho e roubado seu coração.",
+    "Eu amo tudo em você: seu sorriso, sua voz e até suas manias. Eu te amo assim, meu amor: por completo.",
+    "Todo dia é um dia feliz se estou ao seu lado.",
+    "Você me inspira, nutre o meu coração e me enche de alegria. Eu te amo, meu amor.",
+    "Amar é sentir um turbilhão de sentimentos ao mesmo tempo e, dentro de mim, um universo inteiro se expande pelo seu amor",
+    "Creio que a escolha de amar é sem dúvidas a mais poderosa força do universo. Me sinto completa ao seu lado, meu amor.",
+    "Amar é entender que somos dois indivíduos que decidiram compartilhar uma vida em comum.",
+    "Se do meu amor por você nascesse uma flor, eu poderia caminhar eternamente por um jardim infinito.",
+    "Eu só entendi o que era o amor quando você entrou na minha vida e deu sentido a ela.",
+    "O meu amor por você não cabe no meu coração. Ele transborda o meu ser e completa a minha alma.",
   ],
+
+
   friendship: [
     "A amizade é o maior presente da vida.",
     "Amigos são a família que escolhemos.",
@@ -100,7 +153,25 @@ const frases = {
     "A jornada pode ser longa, mas vale a pena.",
     "O sucesso é construído com esforço diário.",
     "Você é capaz de superar qualquer desafio.",
-    
+    "Não duvide de você.",
+    "se prepare pra vencer.",
+    "O que não te desafia não te transforma. Crescer dói, mas vale a pena.",
+    "Não se misture com quem você não seria.",
+    "No lugar certo, você brilha diferente.",
+    "Seja 1% melhor todos os dias",
+    "sua atitude define tudo",
+    "Apenas comece.",
+    "Tarde foi ontem, hoje ainda dá tempo.",
+    "O básico bem feito é perfeito",
+    "Calma, tudo tem seu tempo",
+    "Quanto mais você é, menos precisa dizer que é.",
+    "Ou você faz, ou você assiste o outro fazer.",
+    "Disciplina é fazer o que você não quer, para ter o que quer.",
+    "Quem investe na fé, não precisa contar com a sorte",
+    "Não fala, vai lá e faz!",
+    "Não pare até sentir orgulho de você",
+    "Inspire o mundo ao seu redor",
+   
   ],
   spiritual: [
     "A fé move montanhas.",

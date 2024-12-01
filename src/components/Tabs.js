@@ -4,6 +4,7 @@ import TextGeneratorDesktop from './TextGeneratorDesktop';
 import TextGeneratorMobile from './TextGeneratorMobile';
 import Tutorial from './Tutorial';
 import Contact from './Contact';
+import Sobre from './sobre'; // Importa o componente "Sobre"
 
 const Tabs = () => {
     const [activeTab, setActiveTab] = useState('home');
@@ -33,6 +34,8 @@ const Tabs = () => {
                 return <Tutorial />;
             case 'contact':
                 return <Contact />;
+            case 'sobre': // Corrigido para adicionar o case "sobre"
+                return <Sobre />;
             default:
                 return null;
         }
@@ -40,8 +43,10 @@ const Tabs = () => {
 
     return (
         <div className="ajeitando">
-
-            <div className="tabs-container" style={{ display: 'flex', justifyContent: 'center', marginBottom: '20px'  } } >
+            <div 
+                className="tabs-container" 
+                style={{ display: 'flex', justifyContent: 'center', marginBottom: '20px' }}
+            >
                 <button 
                     onClick={() => setActiveTab('home')} 
                     className="edit-menu-tab"
@@ -49,15 +54,15 @@ const Tabs = () => {
                         padding: '10px 20px', 
                         cursor: 'pointer', 
                         color: 'white', 
-                        backgroundColor: 'transparent',  // Fundo transparente
-                        border: '2px solid transparent',  // Borda transparente
-                        borderRadius: '5px',  // Borda arredondada
-                        fontWeight: '600',  // Fonte mais grossa
-                        letterSpacing: '2px',  // Espaçamento entre as letras
-                        transition: 'all 0.3s ease'  // Transição suave
+                        backgroundColor: 'transparent',  
+                        border: '2px solid transparent',  
+                        borderRadius: '5px',  
+                        fontWeight: '600',  
+                        letterSpacing: '2px',  
+                        transition: 'all 0.3s ease'  
                     }}
-                    onMouseEnter={(e) => e.target.style.color = '#FF6347'} // Hover: Cor laranja
-                    onMouseLeave={(e) => e.target.style.color = 'white'} // Retorna ao branco
+                    onMouseEnter={(e) => e.target.style.color = '#FF6347'} 
+                    onMouseLeave={(e) => e.target.style.color = 'white'}
                 >
                     Início
                 </button>
@@ -67,15 +72,15 @@ const Tabs = () => {
                         padding: '10px 20px', 
                         cursor: 'pointer', 
                         color: 'white',
-                        backgroundColor: 'transparent',  // Fundo transparente
-                        border: '2px solid transparent',  // Borda transparente
-                        borderRadius: '5px',  // Borda arredondada
-                        fontWeight: '600',  // Fonte mais grossa
-                        letterSpacing: '2px',  // Espaçamento entre as letras
-                        transition: 'all 0.3s ease'  // Transição suave
+                        backgroundColor: 'transparent',  
+                        border: '2px solid transparent',  
+                        borderRadius: '5px',  
+                        fontWeight: '600',  
+                        letterSpacing: '2px',  
+                        transition: 'all 0.3s ease'  
                     }}
-                    onMouseEnter={(e) => e.target.style.color = '#4CAF50'} // Hover: Cor verde
-                    onMouseLeave={(e) => e.target.style.color = 'white'} // Retorna ao branco
+                    onMouseEnter={(e) => e.target.style.color = '#4CAF50'} 
+                    onMouseLeave={(e) => e.target.style.color = 'white'}
                 >
                     Tutorial
                 </button>
@@ -85,17 +90,35 @@ const Tabs = () => {
                         padding: '10px 20px', 
                         cursor: 'pointer', 
                         color: 'white',
-                        backgroundColor: 'transparent',  // Fundo transparente
-                        border: '2px solid transparent',  // Borda transparente
-                        borderRadius: '5px',  // Borda arredondada
-                        fontWeight: '600',  // Fonte mais grossa
-                        letterSpacing: '2px',  // Espaçamento entre as letras
-                        transition: 'all 0.3s ease'  // Transição suave
+                        backgroundColor: 'transparent',  
+                        border: '2px solid transparent',  
+                        borderRadius: '5px',  
+                        fontWeight: '600',  
+                        letterSpacing: '2px',  
+                        transition: 'all 0.3s ease'  
                     }}
-                    onMouseEnter={(e) => e.target.style.color = '#ADD8E6'} // Hover: Cor azul claro
-                    onMouseLeave={(e) => e.target.style.color = 'white'} // Retorna ao branco
+                    onMouseEnter={(e) => e.target.style.color = '#ADD8E6'} 
+                    onMouseLeave={(e) => e.target.style.color = 'white'}
                 >
                     Contato
+                </button>
+                <button 
+                    onClick={() => setActiveTab('sobre')} 
+                    style={{
+                        padding: '10px 20px', 
+                        cursor: 'pointer', 
+                        color: 'white',
+                        backgroundColor: 'transparent',  
+                        border: '2px solid transparent',  
+                        borderRadius: '5px',  
+                        fontWeight: '600',  
+                        letterSpacing: '2px',  
+                        transition: 'all 0.3s ease'  
+                    }}
+                    onMouseEnter={(e) => e.target.style.color = '#FFA500'} 
+                    onMouseLeave={(e) => e.target.style.color = 'white'}
+                >
+                    Sobre
                 </button>
             </div>
 

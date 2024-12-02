@@ -2,9 +2,8 @@ import { useState, useEffect } from 'react';
 import TextGeneratorDesktop from './TextGeneratorDesktop';
 import TextGeneratorMobile from './TextGeneratorMobile';
 import Tutorial from './Tutorial';
-import Contact from './Contato';
+import Contato from './Contato';
 import Sobre from './sobre';
-
 
 const Tabs = () => {
     const [activeTab, setActiveTab] = useState('home');
@@ -19,19 +18,24 @@ const Tabs = () => {
         window.addEventListener('resize', checkWindowSize);
         return () => window.removeEventListener('resize', checkWindowSize);
     }, []);
-<br/>
+
     const renderContent = () => {
-        switch (activeTab) {
-            case 'home':
-                return isMobile ? <TextGeneratorMobile /> : <TextGeneratorDesktop />;
-            case 'tutorial':
-                return <Tutorial />;
-            case 'Contato':
-                return <Contato />;
-            case 'sobre':
-                return <Sobre />;
-            default:
-                return null;
+        try {
+            switch (activeTab) {
+                case 'home':
+                    return isMobile ? <TextGeneratorMobile /> : <TextGeneratorDesktop />;
+                case 'tutorial':
+                    return <Tutorial />;
+                case 'contato': // Corrigi o nome aqui para manter consistência com o botão
+                    return <Contato />;
+                case 'sobre':
+                    return <Sobre />;
+                default:
+                    return null;
+            }
+        } catch (error) {
+            console.error("Error rendering content:", error);
+            return <p>Erro ao carregar conteúdo.</p>;
         }
     };
 
@@ -40,7 +44,7 @@ const Tabs = () => {
             <div 
                 className={`tabs-container ${isMobile ? 'tabs-container-mobile' : 'tabs-container-desktop'}`}
             >
-                {['home', 'tutorial', 'contact', 'sobre'].map((tab) => (
+                {['home', 'tutorial', 'contato', 'sobre'].map((tab) => (
                     <button
                         key={tab}
                         onClick={() => setActiveTab(tab)}

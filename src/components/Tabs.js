@@ -26,7 +26,7 @@ const Tabs = () => {
                 return isMobile ? <TextGeneratorMobile /> : <TextGeneratorDesktop />;
             case 'tutorial':
                 return <Tutorial />;
-            case 'contato':
+            case 'Contato':
                 return <Contato />;
             case 'sobre':
                 return <Sobre />;

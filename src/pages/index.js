@@ -66,7 +66,7 @@ export default function Home() {
                     <br/> <br/>
                     <h1 style={{ color: "#fff", textAlign: "center" }}>
                         <img src="/efrases.png" alt="Logo do eFrases" width="230px" className="logo-edit" />
-                        <br/>
+                        <br/><br/>
                     </h1>
                 </header>
 

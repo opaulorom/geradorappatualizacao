@@ -9,10 +9,7 @@ import {
   Alert,
   AlertIcon,
   Box,
-  Slider,
-  SliderTrack,
-  SliderFilledTrack,
-  SliderThumb,
+
   
 } from "@chakra-ui/react";
 import { toPng } from "html-to-image";
@@ -25,7 +22,8 @@ import Draggable from "react-draggable";
 import { createFFmpeg, fetchFile } from '@ffmpeg/ffmpeg';
 import dynamic from 'next/dynamic';
 import { useNavigate } from 'react-router-dom';
-
+import { HStack } from "@chakra-ui/react";
+import { ChromePicker } from "react-color";
 
 
 
@@ -45,26 +43,47 @@ const GradientControls = ({
   <Box mb={4} width="100%">
     <br />
     <Text color="white" fontWeight="bold" mb={2}>
-      Fundo e Gradiente
-    </Text>
-    <Slider
-    
-      aria-label="Transparência do gradiente"
-      defaultValue={gradientOpacity * 100}
-      onChange={(val) => setGradientOpacity(val / 100)}
-    >
-      <SliderTrack>
-        <SliderFilledTrack />
-      </SliderTrack>
-      <SliderThumb aria-label="Controle de tamanho do nome"  />
-    </Slider>
-    <Input
-      type="color"
-      value={gradientStart}
-      onChange={(e) => setGradientStart(e.target.value)}
-      mb={2}
-      aria-label="Cor inicial do gradiente"
+  Fundo e Gradiente
+</Text>
+
+<HStack spacing={4} alignItems="center" mb={4}>
+  <Button
+    onClick={() => setGradientOpacity((prev) => Math.max(prev - 0.1, 0))}
+    aria-label="Diminuir transparência do gradiente"
+  >
+    -
+  </Button>
+  <Box
+    width="150px"
+    height="10px"
+    bg="gray.600"
+    borderRadius="md"
+    position="relative"
+  >
+    <Box
+      width={`${gradientOpacity * 100}%`}
+      height="100%"
+      bg="blue.500"
+      borderRadius="md"
+      transition="width 0.2s ease"
     />
+  </Box>
+  <Button
+    onClick={() => setGradientOpacity((prev) => Math.min(prev + 0.1, 1))}
+    aria-label="Aumentar transparência do gradiente"
+  >
+    +
+  </Button>
+</HStack>
+
+<Input
+  type="color"
+  value={gradientStart}
+  onChange={(e) => setGradientStart(e.target.value)}
+  mb={2}
+  aria-label="Cor inicial do gradiente"
+/>
+
     <Input
       type="color"
       value={gradientEnd}
@@ -151,6 +170,8 @@ const addCustomPhrase = () => {
   }
 };
 
+const [nameColorOpacity, setNameColorOpacity] = useState(1); // Opacidade inicial para a cor do nome
+const [phraseColorOpacity, setPhraseColorOpacity] = useState(1); // Opacidade inicial para a cor da frase
 
 
 useEffect(() => {
@@ -591,45 +612,82 @@ const handleDownloadSelected = useCallback(async () => {
 
 <div className="orange ">
 <Box mb={4} width="100%">
-<h2 className="p-tutor">Escolha o Tamanho<a  href="#text-image" className="irbaixo2">Visualizar</a> <img src=""/>  </h2>
+  <h2 className="p-tutor">
+    Escolha o Tamanho
+    <a href="#text-image" className="irbaixo2">
+      Visualizar
+    </a>
+    <img src="" />
+  </h2>
 
-<Text color="white" fontWeight="700" fontFamily="Nunito, sans-serif" mb={2}>
-  Tamanho do Nome
-</Text>
-<Slider
-  aria-label="Tamanho do Nome"
-  value={nameSize}
-  onChange={(val) => setNameSize(val)}
-  min={1}
-  max={10}
-  step={0.1}
->
-  <SliderTrack>
-    <SliderFilledTrack />
-  </SliderTrack>
-  <SliderThumb aria-label="Tanho do nome"  />
-</Slider>
+  <Text color="white" fontWeight="700" fontFamily="Nunito, sans-serif" mb={2}>
+    Tamanho do Nome
+  </Text>
+  <HStack spacing={4} alignItems="center">
+    <Button
+      onClick={() => setNameSize((prev) => Math.max(prev - 0.1, 1))}
+      aria-label="Diminuir tamanho do nome"
+    >
+      -
+    </Button>
+    <Box
+      width="150px"
+      height="10px"
+      bg="gray.600"
+      borderRadius="md"
+      position="relative"
+    >
+      <Box
+        width={`${(nameSize / 10) * 100}%`}
+        height="100%"
+        bg="blue.500"
+        borderRadius="md"
+        transition="width 0.2s ease"
+      />
+    </Box>
+    <Button
+      onClick={() => setNameSize((prev) => Math.min(prev + 0.1, 10))}
+      aria-label="Aumentar tamanho do nome"
+    >
+      +
+    </Button>
+  </HStack>
+
+  <Text color="white" fontWeight="700" fontFamily="Nunito, sans-serif" mb={2} mt={4}>
+    Tamanho da Frase
+  </Text>
+  <HStack spacing={4} alignItems="center">
+    <Button
+      onClick={() => setPhraseSize((prev) => Math.max(prev - 0.1, 1))}
+      aria-label="Diminuir tamanho da frase"
+    >
+      -
+    </Button>
+    <Box
+      width="150px"
+      height="10px"
+      bg="gray.600"
+      borderRadius="md"
+      position="relative"
+    >
+      <Box
+        width={`${(phraseSize / 10) * 100}%`}
+        height="100%"
+        bg="green.500"
+        borderRadius="md"
+        transition="width 0.2s ease"
+      />
+    </Box>
+    <Button
+      onClick={() => setPhraseSize((prev) => Math.min(prev + 0.1, 10))}
+      aria-label="Aumentar tamanho da frase"
+    >
+      +
+    </Button>
+  </HStack>
 </Box>
 
 
-
-
-<Text color="white" fontWeight="700" fontFamily="Nunito, sans-serif" mb={2}>
-  Tamanho da Frase
-</Text>
-<Slider
-aria-label="Tamanho da Frase"
-value={phraseSize}
-onChange={(val) => setPhraseSize(val)} // Atualiza o estado
-min={1}
-max={10}
-step={0.1}
->
-<SliderTrack>
-  <SliderFilledTrack />
-</SliderTrack>
-<SliderThumb aria-label="Controle de tamanho da Frase"  />
-</Slider>
 
 <Box mb={4}>
 <Text color="white" fontWeight="700" mb={2}>

@@ -26,6 +26,7 @@
     "i18next-browser-languagedetector": "^8.0.0",
     "i18next-http-backend": "^2.6.2",
     "next": "^15.0.3",
+    "react-color": "^2.19.3",
     "react-device-detect": "^2.2.3",
     "react-draggable": "^4.4.6",
     "react-dropzone": "^14.3.5",

@@ -63,8 +63,10 @@ export default function Home() {
                 minHeight: "100vh",
             }}>
                 <header>
+                    <br/> <br/>
                     <h1 style={{ color: "#fff", textAlign: "center" }}>
                         <img src="/efrases.png" alt="Logo do eFrases" width="230px" className="logo-edit" />
+                        <br/>
                     </h1>
                 </header>
 

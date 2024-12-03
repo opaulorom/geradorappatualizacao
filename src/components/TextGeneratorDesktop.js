@@ -163,12 +163,6 @@ const [phraseFont, setPhraseFont] = useState("Nunito"); // Fonte da frase
 const [nameColor, setNameColor] = useState("#FFFFFF"); // Cor do nome
 const [phraseColor, setPhraseColor] = useState("#FFFFFF"); // Cor da frase
 const [hasInteracted, setHasInteracted] = useState(false);
-const addCustomPhrase = () => {
-  if (userPhrase.trim() !== "") {
-    setCustomPhrases((prevPhrases) => [...prevPhrases, userPhrase]); // Atualiza a lista de frases
-    setUserPhrase(""); // Limpa o campo de entrada
-  }
-};
 
 const [nameColorOpacity, setNameColorOpacity] = useState(1); // Opacidade inicial para a cor do nome
 const [phraseColorOpacity, setPhraseColorOpacity] = useState(1); // Opacidade inicial para a cor da frase
@@ -183,12 +177,10 @@ useEffect(() => {
 
 
 const changePhrase = useCallback(() => {
-  const combinedPhrases = [...customPhrases, ...greetingMessages];
-  if (combinedPhrases.length > 0) {
-    setCurrentPhraseIndex((prevIndex) => (prevIndex + 1) % combinedPhrases.length);
+  if (allPhrases.length > 0) {
+    setCurrentPhraseIndex((prevIndex) => (prevIndex + 1) % allPhrases.length);
   }
-}, [customPhrases, greetingMessages]); // Dependências diretas
-
+}, [allPhrases]);
 
 
 const createFFmpeg = dynamic(
@@ -196,12 +188,11 @@ const createFFmpeg = dynamic(
   { ssr: false }
 );
   
-  const currentPhrase = useMemo(() => {
-    if (allPhrases.length > 0) {
-      return allPhrases[currentPhraseIndex];
-    }
-    return ""; // Retorna vazio se não houver frases
-  }, [allPhrases, currentPhraseIndex]);
+const currentPhrase = useMemo(() => {
+  return allPhrases.length > 0 ? allPhrases[currentPhraseIndex] : "";
+}, [allPhrases, currentPhraseIndex]);
+
+
   
   <Text
     fontSize={`${currentPhraseSize}rem`}
@@ -218,6 +209,9 @@ const handleClick = () => {
     event_label: "Generate Text",
   });
 };
+
+
+
 
   
   const handleTouchStart = (e, target) => {
@@ -306,6 +300,16 @@ const initialPhrasePosition = { x: 0, y: 0 };
   };
 
 
+  const addCustomPhrase = () => {
+    if (userPhrase.trim() !== "") {
+      setCustomPhrases((prevPhrases) => [...prevPhrases, userPhrase]);
+      setUserPhrase(""); // Limpa o campo de entrada
+
+      // Atualiza a frase atual para a nova frase adicionada
+      setCurrentPhraseIndex(allPhrases.length); // Define o índice para a nova frase
+    }
+  };
+  
 
   
 <Box mb={4}>
@@ -507,24 +511,20 @@ const handleDownloadSelected = useCallback(async () => {
   }, [fetchFrases, name]);
   
 
-<Box>
-
-
-
-      <Text color="white" fontWeight="bold" mb={2}>
-        Frases Personalizadas
-      </Text>
-      {customPhrases.length > 0 ? (
-        customPhrases.map((phrase, index) => (
-          <Text key={index} color="white" mb={1}>
-            {phrase}
-          </Text>
-        ))
-      ) : (
-        <Text color="gray.500">Nenhuma frase adicionada ainda.</Text>
-      )}
-    </Box>
-
+<Box mb={4}>
+        <Text color="white" fontWeight="bold" mb={2}>
+          Frases Personalizadas
+        </Text>
+        {customPhrases.length > 0 ? (
+          customPhrases.map((phrase, index) => (
+            <Text key={index} color="white" mb={1}>
+              {phrase}
+            </Text>
+          ))
+        ) : (
+          <Text color="gray.500">Nenhuma frase adicionada ainda.</Text>
+        )}
+      </Box>
   return (
     <Flex
       minH="100vh"

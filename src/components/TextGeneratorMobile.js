@@ -117,7 +117,9 @@ const GradientControls = ({
 
 const TextGenerator = () => {
   // State Variables
-  
+  const [frasesPersonalizadas, setFrasesPersonalizadas] = useState([]);
+
+
   const [name, setName] = useState("");
   const [showNameAlert, setShowNameAlert] = useState(false);
   const [downloadFeedback, setDownloadFeedback] = useState("");
@@ -144,6 +146,7 @@ const TextGenerator = () => {
 const [currentTarget, setCurrentTarget] = useState(null); // Para saber se o gesto está sobre o nome ou a frase
 const [currentNameSize, setCurrentNameSize] = useState(nameSize);
 const [currentPhraseSize, setCurrentPhraseSize] = useState(phraseSize);
+
 const [textBorder, setTextBorder] = useState("none"); // "none" ou estilo da borda
 const [offsetX, setOffsetX] = useState(3); // Deslocamento horizontal padrão
 const [offsetY, setOffsetY] = useState(3); // Deslocamento vertical padrão
@@ -163,15 +166,28 @@ const [phraseFont, setPhraseFont] = useState("Nunito"); // Fonte da frase
 const [nameColor, setNameColor] = useState("#FFFFFF"); // Cor do nome
 const [phraseColor, setPhraseColor] = useState("#FFFFFF"); // Cor da frase
 const [hasInteracted, setHasInteracted] = useState(false);
-const addCustomPhrase = () => {
-  if (userPhrase.trim() !== "") {
-    setCustomPhrases((prevPhrases) => [...prevPhrases, userPhrase]); // Atualiza a lista de frases
-    setUserPhrase(""); // Limpa o campo de entrada
-  }
-};
+
 
 const [nameColorOpacity, setNameColorOpacity] = useState(1); // Opacidade inicial para a cor do nome
 const [phraseColorOpacity, setPhraseColorOpacity] = useState(1); // Opacidade inicial para a cor da frase
+
+  // Função para gerar nova frase
+  const changePhrase = useCallback(() => {
+    // Passo 1: Combinar todas as frases disponíveis
+    const allPhrases = [...greetingMessages, ...customPhrases];
+    
+    // Passo 2: Verificar se existem frases
+    if (allPhrases.length > 0) {
+      // Passo 3: Selecionar frase aleatória
+      const randomIndex = Math.floor(Math.random() * allPhrases.length);
+      
+      // Passo 4: Atualizar frase atual
+      setCurrentPhrase(allPhrases[randomIndex]);
+    }
+  }, [greetingMessages, customPhrases]);
+
+
+
 
 
 useEffect(() => {
@@ -182,26 +198,27 @@ useEffect(() => {
 }, [customPhrases, greetingMessages]); // Use os estados como dependências
 
 
-const changePhrase = useCallback(() => {
-  const combinedPhrases = [...customPhrases, ...greetingMessages];
-  if (combinedPhrases.length > 0) {
-    setCurrentPhraseIndex((prevIndex) => (prevIndex + 1) % combinedPhrases.length);
+useEffect(() => {
+  // Atualiza as frases combinadas sempre que mudar
+  const todasFrases = [...greetingMessages, ...customPhrases];
+  
+  if (todasFrases.length > 0 && currentPhraseIndex >= todasFrases.length) {
+    // Reseta o índice se ultrapassar o tamanho das frases
+    setCurrentPhraseIndex(0);
+    setCurrentPhrase(todasFrases[0]);
   }
-}, [customPhrases, greetingMessages]); // Dependências diretas
-
-
+}, [greetingMessages, customPhrases, currentPhraseIndex]);
 
 const createFFmpeg = dynamic(
   () => import('@ffmpeg/ffmpeg').then((mod) => mod.createFFmpeg),
   { ssr: false }
 );
   
-  const currentPhrase = useMemo(() => {
-    if (allPhrases.length > 0) {
-      return allPhrases[currentPhraseIndex];
-    }
-    return ""; // Retorna vazio se não houver frases
-  }, [allPhrases, currentPhraseIndex]);
+const currentPhrase = useMemo(() => {
+  return allPhrases.length > 0 ? allPhrases[currentPhraseIndex] : "";
+}, [allPhrases, currentPhraseIndex]);
+
+
   
   <Text
     fontSize={`${currentPhraseSize}rem`}
@@ -218,6 +235,10 @@ const handleClick = () => {
     event_label: "Generate Text",
   });
 };
+
+
+
+
 
   
   const handleTouchStart = (e, target) => {
@@ -306,7 +327,25 @@ const initialPhrasePosition = { x: 0, y: 0 };
   };
 
 
+  const addCustomPhrase = () => {
+    if (userPhrase.trim() !== "") {
+      // Adiciona a frase personalizada ao array
+      const novasFrasesPersonalizadas = [...customPhrases, userPhrase.trim()];
+      setCustomPhrases(novasFrasesPersonalizadas);
+      
+      
+      // Atualiza a frase atual para a nova frase
+      setCurrentPhrase(userPhrase.trim());
+      
+      // Limpa o campo de input
+      setUserPhrase("");
+      
+      // Opcional: Atualiza o índice da frase atual
+      setCurrentPhraseIndex(novasFrasesPersonalizadas.length - 1);
+    }
+  };
 
+  
   
 <Box mb={4}>
   <Text color="white" fontWeight="bold" mb={2}>
@@ -435,19 +474,26 @@ const initialPhrasePosition = { x: 0, y: 0 };
         `/api/frases?category=${phraseCategory}&name=${name}`
       );
       if (!response.ok) throw new Error("Erro ao carregar frases.");
+      
       const data = await response.json();
-      setGreetingMessages(data || []);
+      
+      // Combina frases da API com frases personalizadas
+      const todasFrases = [...data, ...customPhrases];
+      
+      setGreetingMessages(data);
+      
+      // Se houver frases, define a primeira como atual
+      if (todasFrases.length > 0) {
+        setCurrentPhrase(todasFrases[0]);
+        setCurrentPhraseIndex(0);
+      }
+      
       setApiError("");
     } catch (error) {
       console.error("Erro ao carregar frases:", error);
       setApiError("Não foi possível carregar as frases.");
     }
-  }, [phraseCategory, name]);
-
-  const resetPhrases = () => {
-    setCustomPhrases([]); // Remove todas as frases personalizadas
-    setCurrentPhraseIndex(0); // Volta para a frase padrão (índice inicial)
-  };
+  }, [phraseCategory, name, customPhrases]);
 
 // Validate Name Input
 const validateName = useCallback(() => {
@@ -506,25 +552,28 @@ const handleDownloadSelected = useCallback(async () => {
     }
   }, [fetchFrases, name]);
   
+    // Efeito para inicializar primeira frase
+    useEffect(() => {
+      // Verificar se há frases disponíveis
+      if (greetingMessages.length > 0 || customPhrases.length > 0) {
+        changePhrase();
+      }
+    }, [greetingMessages, customPhrases, changePhrase]);
 
-<Box>
-
-
-
-      <Text color="white" fontWeight="bold" mb={2}>
-        Frases Personalizadas
-      </Text>
-      {customPhrases.length > 0 ? (
-        customPhrases.map((phrase, index) => (
-          <Text key={index} color="white" mb={1}>
-            {phrase}
-          </Text>
-        ))
-      ) : (
-        <Text color="gray.500">Nenhuma frase adicionada ainda.</Text>
-      )}
-    </Box>
-
+<Box mb={4}>
+        <Text color="white" fontWeight="bold" mb={2}>
+          Frases Personalizadas
+        </Text>
+        {customPhrases.length > 0 ? (
+          customPhrases.map((phrase, index) => (
+            <Text key={index} color="white" mb={1}>
+              {phrase}
+            </Text>
+          ))
+        ) : (
+          <Text color="gray.500">Nenhuma frase adicionada ainda.</Text>
+        )}
+      </Box>
   return (
     <Flex
       minH="100vh"
@@ -763,17 +812,14 @@ const handleDownloadSelected = useCallback(async () => {
 <Text color="white" fontWeight="bold" mb={2}>
 Adicione sua frase personalizada (Opcional)
 </Text>
-<Input
-  placeholder="Escreve Aqui"
-  value={userPhrase}
-  onChange={(e) => setUserPhrase(e.target.value)}
-  mb={2}
-  bg="white"
-  alt="escreva frase personalizada"
-/>
-<Button colorScheme="blue" onClick={addCustomPhrase}  aria-label="Gerar uma nova frase"  aria-live="polite">
-  Adicionar Frase
-</Button>
+<Input 
+        value={newPhrase}
+        onChange={(e) => setNewPhrase(e.target.value)}
+        placeholder="Digite uma nova frase"
+      />
+      <Button onClick={handleAddPhrase}>
+        Adicionar Frase
+      </Button>
 
 </Box>
 <br /><br />
@@ -854,19 +900,17 @@ padding="20px"
 
 {/* Nome Draggable */}
 <Draggable
-  position={namePosition}
-  onStop={(e, data) => setNamePosition({ x: data.x, y: data.y })}
+  position={phrasePosition}
+  onStop={(e, data) => setPhrasePosition({ x: data.x, y: data.y })}
 >
   <Box>
     <Text
-      fontSize={`${nameSize}rem`}
-      fontWeight="bold"
-      color={nameColor}
-      fontFamily={nameFont}
-        role="button"
-  aria-label="Mover nome"
+      fontSize={`${phraseSize}rem`}
+      fontWeight="semibold"
+      fontFamily={phraseFont}
+      color={phraseColor}
     >
-      {name || "Digite seu nome!"}
+      {currentPhrase || "Digite uma frase!"}
     </Text>
   </Box>
 </Draggable>
@@ -893,12 +937,28 @@ padding="20px"
 
       {/* Controles */}
       <div className="controlphone">
-      <Flex mt={4} gap={2}>
-      <Button colorScheme="blue" onClick={changePhrase} aria-label="Gerar uma nova frase"  aria-live="polite" >
-Nova Frase
-</Button>
+      <div>
+      {/* Exibição da frase atual */}
+      <Text>{currentPhrase}</Text>
 
+      {/* Botão para gerar nova frase */}
+      <Flex mt={4} gap={2}>
+        <Button 
+          colorScheme="blue" 
+          onClick={changePhrase} 
+          aria-label="Gerar uma nova frase"  
+          aria-live="polite"
+        >
+          Nova Frase
+        </Button>
       </Flex>
+
+      {/* Componente para adicionar frases personalizadas */}
+      <CustomPhraseInput 
+        onAddPhrase={addCustomPhrase}
+        onRemovePhrase={removeCustomPhrase}
+      />
+    </div>
       </div>
  
 <div className="edit-TiposBaixar">
